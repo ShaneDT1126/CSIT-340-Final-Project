@@ -1,4 +1,4 @@
-package com.csit340final.backend;
+package com.CSIT340.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

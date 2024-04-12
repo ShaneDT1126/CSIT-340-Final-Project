@@ -1,4 +1,4 @@
-package com.csit340final.backend;
+package com.CSIT340.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
