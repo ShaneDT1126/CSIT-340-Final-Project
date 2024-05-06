@@ -25,6 +25,13 @@ public class OurUsers implements UserDetails {
     private String phoneNumber;
     private String role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cartId")
+    private Cart cart;
+
+    @OneToMany(mappedBy = "ourUsers")
+    private List<Orders> orders;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));
