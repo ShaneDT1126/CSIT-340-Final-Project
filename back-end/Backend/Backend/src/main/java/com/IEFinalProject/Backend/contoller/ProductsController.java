@@ -17,4 +17,14 @@ public class ProductsController {
     public ResponseEntity<ProductReqRes> addNewProduct(@RequestBody ProductReqRes product){
         return ResponseEntity.ok(productService.addProduct(product));
     }
+
+    @GetMapping("/public/getAllProducts")
+    public ResponseEntity<ProductReqRes> getAllProducts(){
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    @DeleteMapping("/public/delete/{productId}")
+    public ResponseEntity<ProductReqRes> deleteProduct(Integer productId){
+        return ResponseEntity.ok(productService.deleteProduct(productId));
+    }
 }

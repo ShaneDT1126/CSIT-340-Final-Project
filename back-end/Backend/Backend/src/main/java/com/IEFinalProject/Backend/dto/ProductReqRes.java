@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -23,6 +24,7 @@ public class ProductReqRes {
     private Category category;
     private ProductImages productImages;
     private Products products;
+    private List<Products> allProducts;
 
 
 }
