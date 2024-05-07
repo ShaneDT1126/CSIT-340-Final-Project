@@ -11,6 +11,6 @@ public class Category {
     private Integer categoryId;
     private String name;
 
-    @OneToOne
-    private Products products;
+
+
 }

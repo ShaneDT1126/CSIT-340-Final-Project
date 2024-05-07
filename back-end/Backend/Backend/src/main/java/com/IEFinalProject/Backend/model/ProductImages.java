@@ -22,7 +22,5 @@ public class ProductImages {
     private String filePath;
 
 
-    @OneToOne
-    @JoinColumn(name = "productId")
-    private Products products;
+
 }

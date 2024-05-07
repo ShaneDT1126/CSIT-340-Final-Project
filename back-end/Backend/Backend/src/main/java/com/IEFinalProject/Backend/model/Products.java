@@ -18,8 +18,6 @@ public class Products {
     @JoinColumn(name = "categoryId")
     private Category category;
 
-    @OneToOne(mappedBy = "products", cascade = CascadeType.ALL)
-    private ProductImages productImages;
 
 
 }
