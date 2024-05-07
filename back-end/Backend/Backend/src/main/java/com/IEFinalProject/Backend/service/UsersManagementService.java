@@ -1,7 +1,9 @@
 package com.IEFinalProject.Backend.service;
 
 import com.IEFinalProject.Backend.dto.ReqRes;
+import com.IEFinalProject.Backend.model.Cart;
 import com.IEFinalProject.Backend.model.OurUsers;
+import com.IEFinalProject.Backend.repository.CartRepo;
 import com.IEFinalProject.Backend.repository.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,11 +26,14 @@ public class UsersManagementService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CartRepo cartRepo;
 
     public ReqRes register(ReqRes registrationRequest){
         ReqRes response = new ReqRes();
 
         try {
+            Cart cart = new Cart();
             OurUsers ourUsers = new OurUsers();
             ourUsers.setUsername(registrationRequest.getUsername());
             ourUsers.setEmail(registrationRequest.getEmail());
@@ -37,9 +42,12 @@ public class UsersManagementService {
             ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
             ourUsers.setPhoneNumber(registrationRequest.getPhoneNumber());
             ourUsers.setAddress(registrationRequest.getAddress());
+            ourUsers.setCart(cart);
             ourUsers.setRole("USER");
+            cart.setUser(ourUsers);
             OurUsers ourNewUser = usersRepo.save(ourUsers);
-            if (ourNewUser.getId() >= 0){
+            Cart newCart = cartRepo.save(cart);
+            if (ourNewUser.getId() >= 0 && newCart.getCartId() >= 0 ){
                 response.setOurUsers(ourNewUser);
                 response.setMessage("User Saved Successfully");
                 response.setStatusCode(200);

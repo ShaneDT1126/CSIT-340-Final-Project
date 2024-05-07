@@ -1,5 +1,6 @@
 package com.IEFinalProject.Backend.dto;
 
+import com.IEFinalProject.Backend.model.Cart;
 import com.IEFinalProject.Backend.model.OurUsers;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,4 +28,5 @@ public class ReqRes {
     private String role;
     private OurUsers ourUsers;
     private List<OurUsers> ourUsersList;
+    private Cart cart;
 }
