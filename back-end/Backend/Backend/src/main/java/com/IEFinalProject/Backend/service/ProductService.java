@@ -108,11 +108,11 @@ public class ProductService {
         return response;
     }
 
-    public ProductReqRes getProductDetails(String productName){
+    public ProductReqRes getProductDetails(Integer productId){
         ProductReqRes response = new ProductReqRes();
 
         try {
-            Optional<Product> product = productRepo.findByName(productName);
+            Optional<Product> product = productRepo.findById(productId);
             if (product.isPresent()){
                 response.setProduct(product.get());
                 response.setStatusCode(200);

@@ -4,6 +4,8 @@ import com.IEFinalProject.Backend.dto.ProductReqRes;
 import com.IEFinalProject.Backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,5 +28,10 @@ public class ProductsController {
     @DeleteMapping("/public/delete/{productId}")
     public ResponseEntity<ProductReqRes> deleteProduct(Integer productId){
         return ResponseEntity.ok(productService.deleteProduct(productId));
+    }
+
+    @GetMapping("/public/getProductDetails/{productId}")
+    public ResponseEntity<ProductReqRes> getProductDetails(@PathVariable Integer productId){
+        return ResponseEntity.ok(productService.getProductDetails(productId));
     }
 }
