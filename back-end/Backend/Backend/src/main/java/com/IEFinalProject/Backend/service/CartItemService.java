@@ -12,6 +12,7 @@ import com.IEFinalProject.Backend.repository.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.Optional;
 
@@ -47,10 +48,33 @@ public class CartItemService {
                 response.setMessage("No Users Found");
             }
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             response.setStatusCode(500);
             response.setError(e.getMessage());
         }
 
+        return response;
+    }
+
+    @Transactional
+    public CartItemReqRes deleteCartItem(Integer cartItemId){
+        CartItemReqRes response = new CartItemReqRes();
+
+        try {
+            Optional<CartItem> cartItem = cartItemRepo.findById(cartItemId);
+            if (cartItem.isPresent()){
+                cartItemRepo.deleteById(cartItemId);
+                response.setMessage("Cart Item Deleted Successfully");
+                response.setStatusCode(200);
+            }else {
+                response.setStatusCode(404);
+                response.setMessage("Item Not Found");
+            }
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            response.setStatusCode(500);
+            response.setError(e.getMessage());
+        }
         return response;
     }
 }
