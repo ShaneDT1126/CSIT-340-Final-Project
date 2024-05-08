@@ -13,10 +13,10 @@ public class OrderItem {
     private Double price;
 
     @ManyToOne
-    @JoinColumn(name = "OrderId")
-    private Orders order;
+    @JoinColumn(name = "orderId")
+    private Orders orders;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "productId")
-    private Products product;
+    private Product product;
 }

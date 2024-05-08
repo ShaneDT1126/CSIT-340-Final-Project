@@ -2,14 +2,13 @@ package com.IEFinalProject.Backend.dto;
 
 import com.IEFinalProject.Backend.model.Category;
 import com.IEFinalProject.Backend.model.ProductImages;
-import com.IEFinalProject.Backend.model.Products;
+import com.IEFinalProject.Backend.model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -23,8 +22,9 @@ public class ProductReqRes {
     private double price;
     private Category category;
     private ProductImages productImages;
-    private Products products;
-    private List<Products> allProducts;
+    @JsonIgnoreProperties({"category"})
+    private Product product;
+    private List<Product> allProducts;
 
 
 }

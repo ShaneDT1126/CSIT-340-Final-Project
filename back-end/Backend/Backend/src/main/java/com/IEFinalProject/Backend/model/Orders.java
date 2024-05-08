@@ -20,7 +20,7 @@ public class Orders {
     @JoinColumn(name = "userId")
     private OurUsers ourUsers;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
 

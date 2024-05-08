@@ -15,7 +15,7 @@ public class CartItem {
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "productId")
-    private Products products;
+    private Product product;
 }

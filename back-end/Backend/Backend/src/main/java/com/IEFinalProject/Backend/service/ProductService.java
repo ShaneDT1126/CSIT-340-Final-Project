@@ -2,17 +2,14 @@ package com.IEFinalProject.Backend.service;
 
 import com.IEFinalProject.Backend.dto.ProductReqRes;
 import com.IEFinalProject.Backend.model.Category;
-import com.IEFinalProject.Backend.model.OurUsers;
-import com.IEFinalProject.Backend.model.ProductImages;
-import com.IEFinalProject.Backend.model.Products;
+import com.IEFinalProject.Backend.model.Product;
 import com.IEFinalProject.Backend.repository.CategoryRepo;
-import com.IEFinalProject.Backend.repository.ProductImagesRepo;
 import com.IEFinalProject.Backend.repository.ProductRepo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,19 +23,20 @@ public class ProductService {
 
 
     @Transactional
+    @JsonIgnoreProperties({"category"})
     public ProductReqRes addProduct(ProductReqRes addProductRequest){
         ProductReqRes response = new ProductReqRes();
 
         try {
-            Products products = new Products();
+            Product product = new Product();
             Category category = categoryRepo.findByName(addProductRequest.getCategory().getName());
-            products.setName(addProductRequest.getName());
-            products.setDescription(addProductRequest.getDescription());
-            products.setPrice(addProductRequest.getPrice());
-            products.setCategory(category);
-            Products newProduct = productRepo.save(products);
+            product.setName(addProductRequest.getName());
+            product.setDescription(addProductRequest.getDescription());
+            product.setPrice(addProductRequest.getPrice());
+            product.setCategory(category);
+            Product newProduct = productRepo.save(product);
             if (newProduct.getProductId() >= 0){
-                response.setProducts(newProduct);
+                response.setProduct(newProduct);
                 response.setMessage("Product Added Successfully");
                 response.setStatusCode(200);
             }
@@ -50,11 +48,12 @@ public class ProductService {
         return response;
     }
 
+    @Transactional
     public ProductReqRes deleteProduct(Integer productId){
         ProductReqRes response = new ProductReqRes();
 
         try {
-            Optional<Products> product = productRepo.findById(productId);
+            Optional<Product> product = productRepo.findById(productId);
             if(product.isPresent()){
                 productRepo.deleteById(productId);
                 response.setStatusCode(200);
@@ -65,6 +64,7 @@ public class ProductService {
             }
 
         } catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             response.setStatusCode(500);
             response.setError("Error Occurred: "+ e.getMessage());
         }
@@ -75,7 +75,7 @@ public class ProductService {
     public ProductReqRes getAllProducts(){
         ProductReqRes response = new ProductReqRes();
         try {
-            List<Products> products = productRepo.findAll();
+            List<Product> products = productRepo.findAll();
             if (!products.isEmpty()){
                 response.setAllProducts(products);
                 response.setStatusCode(200);
@@ -91,4 +91,39 @@ public class ProductService {
         }
         return response;
     }
+
+    public ProductReqRes getProductById(Integer productId){
+        ProductReqRes response = new ProductReqRes();
+
+        try {
+            Product product = productRepo.findById(productId).orElseThrow(()-> new RuntimeException("Product Not Found"));
+            response.setProduct(product);
+            response.setStatusCode(200);
+            response.setMessage("Product: " +product+ " found");
+        } catch (Exception e){
+            response.setStatusCode(500);
+            response.setError("Error Occurred: "+ e.getMessage());
+        }
+
+        return response;
+    }
+
+    public ProductReqRes getProductDetails(String productName){
+        ProductReqRes response = new ProductReqRes();
+
+        try {
+            Optional<Product> product = productRepo.findByName(productName);
+            if (product.isPresent()){
+                response.setProduct(product.get());
+                response.setStatusCode(200);
+                response.setMessage("Success!");
+            }
+        } catch (Exception e){
+            response.setStatusCode(500);
+            response.setError("Error Occurred: "+ e.getMessage());
+        }
+        return response;
+    }
+
+
 }

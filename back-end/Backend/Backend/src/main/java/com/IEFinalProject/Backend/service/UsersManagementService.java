@@ -5,11 +5,14 @@ import com.IEFinalProject.Backend.model.Cart;
 import com.IEFinalProject.Backend.model.OurUsers;
 import com.IEFinalProject.Backend.repository.CartRepo;
 import com.IEFinalProject.Backend.repository.UsersRepo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +32,8 @@ public class UsersManagementService {
     @Autowired
     private CartRepo cartRepo;
 
+    @Transactional
+    @JsonIgnoreProperties({"cart"})
     public ReqRes register(ReqRes registrationRequest){
         ReqRes response = new ReqRes();
 
@@ -86,6 +91,7 @@ public class UsersManagementService {
         return response;
     }
 
+
     public ReqRes refreshToken(ReqRes requestRefreshToken){
         ReqRes response = new ReqRes();
 
@@ -109,6 +115,7 @@ public class UsersManagementService {
         }
         return response;
     }
+
 
     public ReqRes getAllUsers(){
         ReqRes response = new ReqRes();
@@ -146,6 +153,7 @@ public class UsersManagementService {
         return response;
     }
 
+    @Transactional
     public ReqRes deleteUser (Integer id){
         ReqRes response = new ReqRes();
 
@@ -160,12 +168,14 @@ public class UsersManagementService {
                 response.setMessage("User Not Found");
             }
         } catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             response.setStatusCode(500);
             response.setError("Error Occurred: "+ e.getMessage());
         }
         return response;
     }
 
+    @Transactional
     public ReqRes updateUser (Integer id, OurUsers updateUserRequest){
         ReqRes response = new ReqRes();
 
@@ -195,6 +205,7 @@ public class UsersManagementService {
             }
 
         }catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             response.setStatusCode(500);
             response.setError("Error Occurred: "+ e.getMessage());
         }

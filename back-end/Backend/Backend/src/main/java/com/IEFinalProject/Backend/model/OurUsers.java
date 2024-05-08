@@ -1,5 +1,6 @@
 package com.IEFinalProject.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
+@JsonIgnoreProperties({"cart"})
 public class OurUsers implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +27,10 @@ public class OurUsers implements UserDetails {
     private String phoneNumber;
     private String role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cartId")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Cart cart;
 
-    @OneToMany(mappedBy = "ourUsers")
+    @OneToMany(mappedBy = "ourUsers",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Orders> orders;
 
     @Override

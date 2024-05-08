@@ -26,6 +26,7 @@ public class ReqRes {
     private String address;
     private String phoneNumber;
     private String role;
+    @JsonIgnoreProperties({"cart"})
     private OurUsers ourUsers;
     private List<OurUsers> ourUsersList;
     private Cart cart;
