@@ -22,7 +22,7 @@ public class ProductReqRes {
     private double price;
     private Category category;
     private ProductImages productImages;
-    @JsonIgnoreProperties({"category"})
+    //@JsonIgnoreProperties({"category"})
     private Product product;
     private List<Product> allProducts;
 

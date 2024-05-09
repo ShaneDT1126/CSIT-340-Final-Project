@@ -77,4 +77,9 @@ public class CartItemService {
         }
         return response;
     }
+
+    public CartItem getCartItemById(Integer id){
+
+        return null;
+    }
 }

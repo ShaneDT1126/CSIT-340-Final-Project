@@ -33,7 +33,7 @@ public class UsersManagementService {
     private CartRepo cartRepo;
 
     @Transactional
-    @JsonIgnoreProperties({"cart"})
+    //@JsonIgnoreProperties({"cart"})
     public ReqRes register(ReqRes registrationRequest){
         ReqRes response = new ReqRes();
 
