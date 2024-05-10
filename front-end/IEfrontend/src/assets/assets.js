@@ -1,5 +1,5 @@
 import basket_icon from './basket_icon.png'
-import logo from './logo.png'
+import logo1 from './logo1.png'
 import header_img from './header_img.png'
 import search_icon from './search_icon.png'
 import menu_1 from './menu_1.png'
@@ -61,7 +61,7 @@ import logout_icon from './logout_icon.png'
 import parcel_icon from './parcel_icon.png'
 
 export const assets = {
-    logo,
+    logo1,
     basket_icon,
     header_img,
     search_icon,
@@ -79,42 +79,43 @@ export const assets = {
     profile_icon,
     logout_icon,
     bag_icon,
-    parcel_icon
+    parcel_icon,
 }
 
 export const menu_list = [
     {
-        menu_name: "Salad",
+        menu_name: "Shirts",
         menu_image: menu_1
     },
     {
-        menu_name: "Rolls",
+        menu_name: "Bags",
         menu_image: menu_2
     },
     {
-        menu_name: "Deserts",
+        menu_name: "Jackets",
         menu_image: menu_3
     },
     {
-        menu_name: "Sandwich",
+        menu_name: "Sling",
         menu_image: menu_4
-    },
-    {
-        menu_name: "Cake",
-        menu_image: menu_5
-    },
-    {
-        menu_name: "Pure Veg",
-        menu_image: menu_6
-    },
-    {
-        menu_name: "Pasta",
-        menu_image: menu_7
-    },
-    {
-        menu_name: "Noodles",
-        menu_image: menu_8
     }]
+    // ,
+    // {
+    //     menu_name: "Cake",
+    //     menu_image: menu_5
+    // },
+    // {
+    //     menu_name: "Pure Veg",
+    //     menu_image: menu_6
+    // },
+    // {
+    //     menu_name: "Pasta",
+    //     menu_image: menu_7
+    // },
+    // {
+    //     menu_name: "Noodles",
+    //     menu_image: menu_8
+    // }
 
 export const food_list = [
     {
