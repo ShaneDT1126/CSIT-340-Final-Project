@@ -78,8 +78,25 @@ public class CartItemService {
         return response;
     }
 
-    public CartItem getCartItemById(Integer id){
+    public CartItemReqRes getCartItemById(Integer id){
+        CartItemReqRes response = new CartItemReqRes();
 
-        return null;
+        try {
+            Optional<CartItem> cartItem = cartItemRepo.findById(id);
+            if (cartItem.isPresent()){
+                response.setCartItem(cartItem.get());
+                response.setStatusCode(200);
+                response.setMessage("Cart Item Found Successfully!");
+
+            } else {
+                response.setStatusCode(404);
+                response.setMessage("Cart Item Not Found");
+            }
+        } catch (Exception e) {
+            response.setError("Error: " + e.getMessage());
+            response.setStatusCode(500);
+        }
+
+        return response;
     }
 }

@@ -18,10 +18,7 @@ public class CartReqRes {
     private String message;
     private String error;
     private int statusCode;
-    //@JsonIgnoreProperties({"ourUsers"})
     private OurUsers ourUsers;
-    //@JsonIgnoreProperties({"cart"})
     private List<CartItem> cartItems;
-    //@JsonIgnoreProperties({"cart_item"})
     private Cart cart;
 }

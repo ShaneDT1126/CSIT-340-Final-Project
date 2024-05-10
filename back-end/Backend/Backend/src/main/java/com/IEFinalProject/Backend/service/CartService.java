@@ -4,12 +4,14 @@ import com.IEFinalProject.Backend.dto.CartReqRes;
 import com.IEFinalProject.Backend.model.Cart;
 import com.IEFinalProject.Backend.model.CartItem;
 import com.IEFinalProject.Backend.model.OurUsers;
+import com.IEFinalProject.Backend.model.Product;
 import com.IEFinalProject.Backend.repository.CartRepo;
 import com.IEFinalProject.Backend.repository.UsersRepo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,10 +49,28 @@ public class CartService {
         return response;
     }
 
-    public Double getTotalAmount(String username){
-        Optional<OurUsers> users = usersRepo.findByUsername(username);
+    public double getTotalAmount(String username) {
+        double totalAmount = 0.0;
 
+        try {
+            Optional<OurUsers> currentUser = usersRepo.findByUsername(username);
+            if (currentUser.isPresent()) {
+                Cart cart = currentUser.get().getCart();
+                List<CartItem> cartItems = cart.getCartItems();
 
-        return null;
+                for (CartItem cartItem : cartItems) {
+                    Product product = cartItem.getProduct();
+                    int quantity = cartItem.getQuantity();
+                    double productPrice = product.getPrice();
+
+                    totalAmount += productPrice * quantity;
+                }
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        return totalAmount;
     }
 }
