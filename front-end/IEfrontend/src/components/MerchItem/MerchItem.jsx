@@ -22,7 +22,7 @@ const MerchItem = ({id,name,price,description,image}) => {
         <div className='merch-item-info'>
             <div className="merch-item-name-rating">
                 <p>{name}</p>
-                <img src={assets.rating_starts} alt=""/>
+                <img src={assets.rating_stars} alt=""/>
             </div>
             <p className="merch-item-desc">
             {description}
