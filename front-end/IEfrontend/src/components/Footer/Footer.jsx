@@ -20,7 +20,6 @@ const Footer = () => {
                 <li>Home</li>
                 <li>About Us</li>
                 <li>Delivery</li>
-                <li>Privacy Policy</li>
             </ul>
         </div>
         <div className="footer-content-right">
@@ -33,7 +32,7 @@ const Footer = () => {
     </div>
     <hr />
     <p className="footer-copyright">
-    Copyright @ akong betlog
+    Copyright @ sheeshjay
     </p>
     </div>
   )
