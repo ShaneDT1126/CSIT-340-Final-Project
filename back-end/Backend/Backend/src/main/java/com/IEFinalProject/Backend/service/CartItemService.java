@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -95,6 +96,28 @@ public class CartItemService {
         } catch (Exception e) {
             response.setError("Error: " + e.getMessage());
             response.setStatusCode(500);
+        }
+
+        return response;
+    }
+
+    public CartItemReqRes getAllCartItemsByUser(String username){
+        CartItemReqRes response = new CartItemReqRes();
+
+        try {
+            Optional<OurUsers> user = usersRepo.findByUsername(username);
+
+            if (user.isPresent()){
+                Cart cart = user.get().getCart();
+                response.setCartItems(cart.getCartItems());
+                response.setMessage("All Cart Items");
+                response.setStatusCode(200);
+            }else {
+                response.setMessage("Cart Item Empty");
+            }
+        } catch (Exception e){
+            response.setStatusCode(500);
+            response.setMessage("Error Occurred: "+ e.getMessage());
         }
 
         return response;

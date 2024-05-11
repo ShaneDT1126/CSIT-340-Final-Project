@@ -20,4 +20,9 @@ public class CartItemController {
     public ResponseEntity<CartItemReqRes> deleteCartItem(@PathVariable Integer cartId){
         return ResponseEntity.ok(cartItemService.deleteCartItem(cartId));
     }
+
+    @GetMapping("/public/getAllCartItemsByUsername/{username}")
+    public ResponseEntity<CartItemReqRes>getAllCartItemsByUsername(@PathVariable String username){
+        return ResponseEntity.ok(cartItemService.getAllCartItemsByUser(username));
+    }
 }

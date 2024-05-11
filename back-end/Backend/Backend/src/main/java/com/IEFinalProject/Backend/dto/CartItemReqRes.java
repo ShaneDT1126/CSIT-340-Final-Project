@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +22,7 @@ public class CartItemReqRes {
     private OurUsers ourUsers;
     private Integer quantity;
     private CartItem cartItem;
+    private List<CartItem> cartItems;
     private Cart cart;
     private Product product;
 }
