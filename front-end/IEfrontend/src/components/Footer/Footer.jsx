@@ -25,14 +25,14 @@ const Footer = () => {
         <div className="footer-content-right">
             <h2>GET IN TOUCH</h2>
             <ul>
-                <li>+09696969696</li>
-                <li>contact.click@gmail.com</li>
+                <li>@TheM4J</li>
+                <li>M4J.dev@gmail.com</li>
             </ul>
         </div>
     </div>
     <hr />
     <p className="footer-copyright">
-    Copyright @ sheeshjay
+    Copyright @ M4J
     </p>
     </div>
   )
