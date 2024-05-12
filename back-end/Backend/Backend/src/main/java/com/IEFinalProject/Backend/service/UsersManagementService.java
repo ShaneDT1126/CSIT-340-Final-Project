@@ -33,7 +33,7 @@ public class UsersManagementService {
     private CartRepo cartRepo;
 
     @Transactional
-    public ReqRes register(ReqRes registrationRequest){
+    public ReqRes userRegister(ReqRes registrationRequest){
         ReqRes response = new ReqRes();
 
         try {
@@ -54,6 +54,39 @@ public class UsersManagementService {
             if (ourNewUser.getId() >= 0 && newCart.getCartId() >= 0 ){
                 response.setOurUsers(ourNewUser);
                 response.setMessage("User Saved Successfully");
+                response.setStatusCode(200);
+            }
+
+        } catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            response.setStatusCode(500);
+            response.setError(e.getMessage());
+        }
+        return response;
+    }
+
+    @Transactional
+    public ReqRes adminRegister(ReqRes registrationRequest){
+        ReqRes response = new ReqRes();
+
+        try {
+            Cart cart = new Cart();
+            OurUsers ourUsers = new OurUsers();
+            ourUsers.setUsername(registrationRequest.getUsername());
+            ourUsers.setEmail(registrationRequest.getEmail());
+            ourUsers.setFirstName(registrationRequest.getFirstName());
+            ourUsers.setLastName(registrationRequest.getLastName());
+            ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+            ourUsers.setPhoneNumber(registrationRequest.getPhoneNumber());
+            ourUsers.setAddress(registrationRequest.getAddress());
+            ourUsers.setCart(cart);
+            ourUsers.setRole("ADMIN");
+            cart.setUser(ourUsers);
+            OurUsers ourNewUser = usersRepo.save(ourUsers);
+            Cart newCart = cartRepo.save(cart);
+            if (ourNewUser.getId() >= 0 && newCart.getCartId() >= 0 ){
+                response.setOurUsers(ourNewUser);
+                response.setMessage("Admin Saved Successfully");
                 response.setStatusCode(200);
             }
 
