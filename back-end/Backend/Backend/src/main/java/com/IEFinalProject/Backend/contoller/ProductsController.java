@@ -26,12 +26,17 @@ public class ProductsController {
     }
 
     @DeleteMapping("/public/delete/{productId}")
-    public ResponseEntity<ProductReqRes> deleteProduct(Integer productId){
+    public ResponseEntity<ProductReqRes> deleteProduct(@PathVariable Integer productId){
         return ResponseEntity.ok(productService.deleteProduct(productId));
     }
 
     @GetMapping("/public/getProductDetails/{productId}")
     public ResponseEntity<ProductReqRes> getProductDetails(@PathVariable Integer productId){
         return ResponseEntity.ok(productService.getProductDetails(productId));
+    }
+
+    @GetMapping("/public/getProductByCategory/{category}")
+    public ResponseEntity<ProductReqRes> getProductByCategory(@PathVariable String category){
+        return ResponseEntity.ok(productService.getProductByCategory(category));
     }
 }

@@ -125,5 +125,25 @@ public class ProductService {
         return response;
     }
 
+    public ProductReqRes getProductByCategory(String category){
+        ProductReqRes response = new ProductReqRes();
+
+        try {
+            List<Product> product = productRepo.findByCategoryName(category);
+            if (!product.isEmpty()){
+                response.setMessage(category+" CATEGORY: ");
+                response.setAllProducts(product);
+                response.setStatusCode(200);
+            }else {
+                response.setMessage("No Products Found");
+                response.setStatusCode(404);
+            }
+        } catch (Exception e) {
+            response.setError("ERROR OCCURRED: " + e.getMessage());
+            response.setStatusCode(500);
+        }
+        return response;
+    }
+
 
 }

@@ -33,7 +33,6 @@ public class UsersManagementService {
     private CartRepo cartRepo;
 
     @Transactional
-    //@JsonIgnoreProperties({"cart"})
     public ReqRes register(ReqRes registrationRequest){
         ReqRes response = new ReqRes();
 
@@ -59,6 +58,7 @@ public class UsersManagementService {
             }
 
         } catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             response.setStatusCode(500);
             response.setError(e.getMessage());
         }
@@ -84,6 +84,7 @@ public class UsersManagementService {
             response.setMessage("Successfully Logged In");
 
         } catch (Exception e){
+
             response.setStatusCode(500);
             response.setError(e.getMessage());
         }

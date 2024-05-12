@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
-@JsonIgnoreProperties({"cart"})
+@JsonIgnoreProperties({"cart","orders"})
 public class OurUsers implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
