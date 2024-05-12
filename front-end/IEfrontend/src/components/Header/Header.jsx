@@ -5,8 +5,8 @@ const Header = () => {
   return (
     <div className='header'>
       <div className="header-contents">
-        <h2>Order your favourite shet</h2>
-        <p>I can swallow a bottle of alcohol and I feel like Godzilla. Better hit dat deck with da card dealer</p>
+        <h2>Order your favorite merch here!</h2>
+        <p>Choose from a variety of your favorite drip from our CSS Merch!</p>
         <button>View Menu</button>
       </div>
     </div>
