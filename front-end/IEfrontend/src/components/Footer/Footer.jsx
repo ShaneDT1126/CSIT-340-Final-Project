@@ -6,8 +6,10 @@ const Footer = () => {
     <div className='footer' id='footer'>
     <div className="footer-content">
         <div className="footer-content-left">
-            <img src={assets.logo} alt="" />
-            
+            <img src={assets.logo2} alt="" />
+            <p>Discover the Ultimate Hub for School Style: Elevate Your Campus Vibes with</p>
+                <p>Trendy Threads, Cool Gear, and Spirit-Fueled Swag – All Right Here!</p>
+                <br/>
             <div className="footer-social-icons">
                 <img src={assets.facebook_icon} alt="" />
                 <img src={assets.twitter_icon} alt="" />
