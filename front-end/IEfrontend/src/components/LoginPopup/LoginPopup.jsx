@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
@@ -8,7 +8,7 @@ import UserService from "../../service/UserService";
 
 // When user isn't logged in, user can interact with Home but can't add items in cart.
 // 
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const [currState, setCurrState] = useState("Login");
 
   // Form Login getters
@@ -17,6 +17,10 @@ const LoginPopup = ({ setShowLogin }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  
+  console.log("username:", username);
+  console.log("password:", password);
+  
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,7 +30,10 @@ const LoginPopup = ({ setShowLogin }) => {
       if (userData.token) {
         localStorage.setItem("token", userData.token);
         localStorage.setItem("role", userData.role);
-        navigate("/profile");
+        alert('User logged in successfully');
+        setShowLogin(false)
+        setIsLoggedIn(true) // if the user is logged in successfully, setLoggedIn should be true
+        navigate("/");
       } else {
         setError(userData.message);
       }
@@ -51,34 +58,38 @@ const LoginPopup = ({ setShowLogin }) => {
       address: ''
   });
 
-    // Number exclusion function
-    const PhoneNumberInput = () => {
-      // const [phoneNumber, setPhoneNumber] = useState('');
-      const handleNumInputChange = (e) => {
-          const inputValue = e.target.value;
-          // Check if the input value is a valid numerical character
-          if (/^[0-9]*$/.test(inputValue)) {
-              // Update state only if the input value is numerical
-              setPhoneNumber(inputValue);
-          }
-      };
-      return (
-          <input
-              type="tel"
-              placeholder="Enter your phone number"
-              maxLength={11}
-              required
-              inputMode="tel"
-              value={formData.phoneNumber} 
-              onChange={handleNumInputChange}
-              style={{ WebkitAppearance: 'none', MozAppearance: 'textfield', appearance: 'none' }}
-          />
-      );
+  const PhoneNumberInput = () => {
+    const inputRef = useRef(null); // Create a ref to the input field
+  
+    const handleNumInputChange = (e) => {
+      const inputValue = e.target.value;
+      // Check if the input value is a valid numerical character
+      if (/^[0-9]*$/.test(inputValue)) {
+        // Update phoneNumber state in formData
+        setFormData({ ...formData, phoneNumber: inputValue });
+      }
+      inputRef.current.focus(); // Set focus back to the input field
     };
+  
+    return (
+      <input
+        ref={inputRef} // Assign the ref to the input field
+        type="tel"
+        placeholder="Enter your phone number"
+        maxLength={11}
+        required
+        inputMode="tel"
+        value={formData.phoneNumber}
+        onChange={handleNumInputChange} // Pass handleNumInputChange to handle phone number changes
+        style={{ WebkitAppearance: 'none', MozAppearance: 'textfield', appearance: 'none' }}
+      />
+    );
+  };
 
     const handleRegisterInputChange = (e) => {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
+        console.log("formData:", { ...formData, [name]: value }); // Log the value of formData
     };
 
     const handleRegisterSubmit = async (e) => {
@@ -100,12 +111,13 @@ const LoginPopup = ({ setShowLogin }) => {
               address: ''
           });
           alert('User registered successfully');
-          navigate('/admin/user-management');
+          navigate('/');
 
       } catch (error) {
           console.error('Error registering user:', error);
           alert('An error occurred while registering user');
       }
+      console.log("formData:", formData);
   };
 
   return (
@@ -126,7 +138,7 @@ const LoginPopup = ({ setShowLogin }) => {
         <div className="login-popup-inputs">
           {currState === "Login" ? (
             <>
-              <input type="email" 
+              <input type="text" 
                 value={username} 
                 placeholder="Enter your email" 
                 required 
