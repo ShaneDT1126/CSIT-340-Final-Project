@@ -92,21 +92,6 @@ public class ProductService {
         return response;
     }
 
-    public ProductReqRes getProductById(Integer productId){
-        ProductReqRes response = new ProductReqRes();
-
-        try {
-            Product product = productRepo.findById(productId).orElseThrow(()-> new RuntimeException("Product Not Found"));
-            response.setProduct(product);
-            response.setStatusCode(200);
-            response.setMessage("Product: " +product+ " found");
-        } catch (Exception e){
-            response.setStatusCode(500);
-            response.setError("Error Occurred: "+ e.getMessage());
-        }
-
-        return response;
-    }
 
     public ProductReqRes getProductDetails(Integer productId){
         ProductReqRes response = new ProductReqRes();

@@ -96,5 +96,9 @@ public class OrdersService {
         return response;
     }
 
+    public OrderReqRes changeOrderStatus(){
+        return null;
+    }
+
 
 }
