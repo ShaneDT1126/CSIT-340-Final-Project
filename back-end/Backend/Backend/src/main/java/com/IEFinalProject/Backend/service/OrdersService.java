@@ -28,7 +28,7 @@ public class OrdersService {
     private OrderItemRepo orderItemRepo;
 
     @Transactional
-    public OrderReqRes addOrder( String username){
+    public OrderReqRes addOrder(String username){
         OrderReqRes response = new OrderReqRes();
 
         try {
@@ -60,7 +60,7 @@ public class OrdersService {
                 if (newOrder.getOrderId() >= 0){
                     response.setStatusCode(200);
                     response.setMessage("Order Successful");
-                    response.setOrders(newOrder);
+                    response.setOrder(newOrder);
                 }
             }else {
                 response.setStatus(404);
@@ -70,6 +70,27 @@ public class OrdersService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             response.setStatusCode(500);
             response.setMessage("Error Occured: " +e.getMessage());
+        }
+
+        return response;
+    }
+
+    public OrderReqRes getAllOrders(){
+        OrderReqRes response = new OrderReqRes();
+
+        try {
+            List<Orders> orders = orderRepo.findAll();
+            if (!orders.isEmpty()){
+                response.setStatusCode(200);
+                response.setOrders(orders);
+                response.setMessage("All Orders Found Successful");
+            }else {
+                response.setStatusCode(404);
+                response.setMessage("No Orders Found");
+            }
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Occurred: "+ e.getMessage());
         }
 
         return response;

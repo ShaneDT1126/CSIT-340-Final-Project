@@ -39,4 +39,9 @@ public class ProductsController {
     public ResponseEntity<ProductReqRes> getProductByCategory(@PathVariable String category){
         return ResponseEntity.ok(productService.getProductByCategory(category));
     }
+
+    @GetMapping("/public/getProductById/{productId}")
+    public ResponseEntity<ProductReqRes> getProductById(@PathVariable Integer productId){
+        return ResponseEntity.ok(productService.getProductById(productId));
+    }
 }

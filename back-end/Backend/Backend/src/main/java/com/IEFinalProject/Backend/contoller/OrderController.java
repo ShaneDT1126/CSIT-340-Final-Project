@@ -4,10 +4,7 @@ import com.IEFinalProject.Backend.dto.OrderReqRes;
 import com.IEFinalProject.Backend.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class OrderController {
@@ -17,5 +14,10 @@ public class OrderController {
     @PostMapping("public/addOrder/{username}")
     public ResponseEntity<OrderReqRes> addOrder(@PathVariable String username){
         return ResponseEntity.ok(ordersService.addOrder(username));
+    }
+
+    @GetMapping("public/getAllOrders")
+    public ResponseEntity<OrderReqRes> getAllOrders(){
+        return ResponseEntity.ok(ordersService.getAllOrders());
     }
 }
