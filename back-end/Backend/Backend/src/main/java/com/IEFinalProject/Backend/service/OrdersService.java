@@ -96,8 +96,49 @@ public class OrdersService {
         return response;
     }
 
-    public OrderReqRes changeOrderStatus(){
-        return null;
+    @Transactional
+    public OrderReqRes changeOrderStatusApprove(Integer orderId){
+        OrderReqRes response = new OrderReqRes();
+
+        try {
+            Optional<Orders> order = orderRepo.findById(orderId);
+            if (order.isPresent()){
+                Orders statusUpdated = order.get();
+                statusUpdated.setStatus(1);
+                response.setOrder(statusUpdated);
+                response.setMessage("Status Approved");
+                response.setStatusCode(200);
+            }else {
+                response.setStatus(404);
+                response.setMessage("Order not found");
+            }
+        } catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            response.setStatusCode(500);
+            response.setMessage("Error Occurred: " +e.getMessage());
+        }
+        return response;
+    }
+
+    public OrderReqRes getOrderDetails(Integer orderId){
+        OrderReqRes response = new OrderReqRes();
+
+        try {
+            Optional<Orders> order = orderRepo.findById(orderId);
+            if (order.isPresent()){
+                response.setOrder(order.get());
+                response.setStatusCode(200);
+                response.setMessage("Order Details Found Successfully!");
+            }else {
+                response.setStatusCode(404);
+                response.setMessage("Order Details Not Found Successfully");
+            }
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Occurred: " +e.getMessage());
+        }
+
+        return response;
     }
 
 

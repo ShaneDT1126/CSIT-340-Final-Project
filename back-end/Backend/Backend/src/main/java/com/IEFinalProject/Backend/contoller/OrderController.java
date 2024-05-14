@@ -20,4 +20,14 @@ public class OrderController {
     public ResponseEntity<OrderReqRes> getAllOrders(){
         return ResponseEntity.ok(ordersService.getAllOrders());
     }
+
+    @PutMapping("public/updateStatusToApprove/{orderId}")
+    public ResponseEntity<OrderReqRes> updateStatusToApprove(@PathVariable Integer orderId){
+        return ResponseEntity.ok(ordersService.changeOrderStatusApprove(orderId));
+    }
+
+    @GetMapping("public/getOrderDetails/{orderId}")
+    public ResponseEntity<OrderReqRes> getOrderDetails(@PathVariable Integer orderId){
+        return ResponseEntity.ok(ordersService.getOrderDetails(orderId));
+    }
 }
