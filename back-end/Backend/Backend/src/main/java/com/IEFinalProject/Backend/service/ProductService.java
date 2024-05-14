@@ -92,21 +92,6 @@ public class ProductService {
         return response;
     }
 
-    public ProductReqRes getProductById(Integer productId){
-        ProductReqRes response = new ProductReqRes();
-
-        try {
-            Product product = productRepo.findById(productId).orElseThrow(()-> new RuntimeException("Product Not Found"));
-            response.setProduct(product);
-            response.setStatusCode(200);
-            response.setMessage("Product: " +product+ " found");
-        } catch (Exception e){
-            response.setStatusCode(500);
-            response.setError("Error Occurred: "+ e.getMessage());
-        }
-
-        return response;
-    }
 
     public ProductReqRes getProductDetails(Integer productId){
         ProductReqRes response = new ProductReqRes();
@@ -121,6 +106,26 @@ public class ProductService {
         } catch (Exception e){
             response.setStatusCode(500);
             response.setError("Error Occurred: "+ e.getMessage());
+        }
+        return response;
+    }
+
+    public ProductReqRes getProductByCategory(String category){
+        ProductReqRes response = new ProductReqRes();
+
+        try {
+            List<Product> product = productRepo.findByCategoryName(category);
+            if (!product.isEmpty()){
+                response.setMessage(category+" CATEGORY: ");
+                response.setAllProducts(product);
+                response.setStatusCode(200);
+            }else {
+                response.setMessage("No Products Found");
+                response.setStatusCode(404);
+            }
+        } catch (Exception e) {
+            response.setError("ERROR OCCURRED: " + e.getMessage());
+            response.setStatusCode(500);
         }
         return response;
     }
