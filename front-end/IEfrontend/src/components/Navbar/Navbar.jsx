@@ -1,12 +1,27 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
+import UserService from "../../service/UserService";
 
 const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn }) => {
   const [menu, setMenu] = useState("home");
   const { getTotalCartAmount } = useContext(StoreContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    try {
+      await UserService.logout();
+      setIsLoggedIn(false);
+      navigate('/');
+
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <div className="navbar">
       <Link to="/">
@@ -48,9 +63,9 @@ const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn }) => {
         ? 
         <button onClick={() => setShowLogin(true)}>Sign in</button>
         :
-        <button onClick={() => setShowLogin(false)}>Sign out</button>
+        <button onClick={handleLogout}>Sign out</button>
         }
-        {/* <button onClick={() => setShowLogin(true)}>Sign in</button> */}
+
       </div>
     </div>
   );

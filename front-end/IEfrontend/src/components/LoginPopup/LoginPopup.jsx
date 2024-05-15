@@ -4,11 +4,7 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import UserService from "../../service/UserService";
 
-// Notes:
-
-// When user isn't logged in, user can interact with Home but can't add items in cart.
-// 
-const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
+const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }) => {
   const [currState, setCurrState] = useState("Login");
 
   // Form Login getters
@@ -16,11 +12,8 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
   
-  console.log("username:", username);
-  console.log("password:", password);
-  
+  //-----------------------------------------------------------------
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,10 +23,12 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
       if (userData.token) {
         localStorage.setItem("token", userData.token);
         localStorage.setItem("role", userData.role);
+        let currUsername = username;
         alert('User logged in successfully');
         setShowLogin(false)
         setIsLoggedIn(true) // if the user is logged in successfully, setLoggedIn should be true
-        navigate("/");
+        setUsernameApp(username);
+        navigate(`/${currUsername}`);
       } else {
         setError(userData.message);
       }
@@ -47,7 +42,6 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
   };
 
   // Form register getters
-
     const [formData, setFormData] = useState({
       firstName: '',
       lastName: '',
@@ -70,7 +64,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
       }
       inputRef.current.focus(); // Set focus back to the input field
     };
-  
+    
     return (
       <input
         ref={inputRef} // Assign the ref to the input field
@@ -111,6 +105,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
               address: ''
           });
           alert('User registered successfully');
+          setShowLogin(false) // 
           navigate('/');
 
       } catch (error) {
@@ -119,6 +114,8 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn }) => {
       }
       console.log("formData:", formData);
   };
+
+  
 
   return (
     <div className="login-popup">
