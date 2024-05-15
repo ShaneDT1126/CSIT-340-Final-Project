@@ -10,12 +10,14 @@ import LoginPopup from "./components/LoginPopup/LoginPopup";
 const App = () => {
   const[showLogin, setShowLogin] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [usernameApp, setUsernameApp] = useState("")
   return (
     <>
     {showLogin?
     <LoginPopup 
     setShowLogin={setShowLogin}
     setIsLoggedIn={setIsLoggedIn}
+    setUsernameApp={setUsernameApp}
     />:<></>}
       <div className="app">
         <Navbar 
@@ -24,7 +26,10 @@ const App = () => {
           setIsLoggedIn={setIsLoggedIn}
         />
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* If user not logged in */}
+          <Route path="/" element={<Home />}/> 
+          {/* if user logged in */}
+          <Route path={`/?${usernameApp}`} element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<PlaceOrder />} />
         </Routes>
