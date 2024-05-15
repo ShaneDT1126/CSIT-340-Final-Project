@@ -6,8 +6,10 @@ const Footer = () => {
     <div className='footer' id='footer'>
     <div className="footer-content">
         <div className="footer-content-left">
-            <img src={assets.logo} alt="" />
-            
+            <img src={assets.logo2} alt="" />
+            <p>Discover the Ultimate Hub for School Style: Elevate Your Campus Vibes with</p>
+                <p>Trendy Threads, Cool Gear, and Spirit-Fueled Swag – All Right Here!</p>
+                <br/>
             <div className="footer-social-icons">
                 <img src={assets.facebook_icon} alt="" />
                 <img src={assets.twitter_icon} alt="" />
@@ -25,14 +27,14 @@ const Footer = () => {
         <div className="footer-content-right">
             <h2>GET IN TOUCH</h2>
             <ul>
-                <li>+09696969696</li>
-                <li>contact.click@gmail.com</li>
+                <li>@TheM4J</li>
+                <li>M4J.dev@gmail.com</li>
             </ul>
         </div>
     </div>
     <hr />
     <p className="footer-copyright">
-    Copyright @ sheeshjay
+    Copyright @ M4J
     </p>
     </div>
   )
