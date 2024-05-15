@@ -54,9 +54,14 @@ const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn }) => {
       <div className="navbar-right">
         <img src={assets.search_icon} alt="" />
         <div className="navbar-search-icon">
+          {!isLoggedIn 
+          ? 
+          <img src={assets.basket_icon} alt="" /> 
+          : 
           <Link to="/cart">
             <img src={assets.basket_icon} alt="" />
-          </Link>
+          </Link>}
+          
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
         {!isLoggedIn 

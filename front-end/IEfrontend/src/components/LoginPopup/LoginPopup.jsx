@@ -148,7 +148,6 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
             </>
           ) : (
             <>
-            {/*  */}
               <input type="text" name="firstName" value={formData.firstName} onChange={handleRegisterInputChange} placeholder="Enter your first name" required />
               <input type="text" name="lastName" value={formData.lastName} onChange={handleRegisterInputChange} placeholder="Enter your last name" required />
               <input type="text" name="username" value={formData.username} onChange={handleRegisterInputChange} placeholder="Enter your username" required />
