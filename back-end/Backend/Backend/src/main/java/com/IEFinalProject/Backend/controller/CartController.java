@@ -1,4 +1,4 @@
-package com.IEFinalProject.Backend.contoller;
+package com.IEFinalProject.Backend.controller;
 
 import com.IEFinalProject.Backend.dto.CartReqRes;
 import com.IEFinalProject.Backend.service.CartService;
@@ -13,7 +13,7 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/public/getCart/{username}")
+    @GetMapping("/user/getCart/{username}")
     public ResponseEntity<CartReqRes> getCart(@PathVariable String username){
         return ResponseEntity.ok(cartService.getCart(username));
     }

@@ -1,4 +1,4 @@
-package com.IEFinalProject.Backend.contoller;
+package com.IEFinalProject.Backend.controller;
 
 import com.IEFinalProject.Backend.dto.ReqRes;
 import com.IEFinalProject.Backend.model.OurUsers;

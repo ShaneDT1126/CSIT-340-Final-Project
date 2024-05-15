@@ -1,6 +1,5 @@
-package com.IEFinalProject.Backend.contoller;
+package com.IEFinalProject.Backend.controller;
 
-import com.IEFinalProject.Backend.model.ProductImages;
 import com.IEFinalProject.Backend.service.UploadDownloadImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

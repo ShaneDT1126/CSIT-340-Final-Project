@@ -1,4 +1,4 @@
-package com.IEFinalProject.Backend.contoller;
+package com.IEFinalProject.Backend.controller;
 
 import com.IEFinalProject.Backend.dto.CartItemReqRes;
 import com.IEFinalProject.Backend.service.CartItemService;
@@ -11,17 +11,17 @@ public class CartItemController {
     @Autowired
     private CartItemService cartItemService;
 
-    @PostMapping("/public/addToCart/{username}/{productId}")
+    @PostMapping("/user/addToCart/{username}/{productId}")
     public ResponseEntity<CartItemReqRes> addToCartItem(@RequestBody CartItemReqRes request, @PathVariable String username, @PathVariable Integer productId){
         return ResponseEntity.ok(cartItemService.addCartItem(request,productId,username));
     }
 
-    @DeleteMapping("/public/deleteCartItem/{cartId}")
+    @DeleteMapping("/user/deleteCartItem/{cartId}")
     public ResponseEntity<CartItemReqRes> deleteCartItem(@PathVariable Integer cartId){
         return ResponseEntity.ok(cartItemService.deleteCartItem(cartId));
     }
 
-    @GetMapping("/public/getAllCartItemsByUsername/{username}")
+    @GetMapping("/user/getAllCartItemsByUsername/{username}")
     public ResponseEntity<CartItemReqRes>getAllCartItemsByUsername(@PathVariable String username){
         return ResponseEntity.ok(cartItemService.getAllCartItemsByUser(username));
     }
