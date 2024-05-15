@@ -41,6 +41,9 @@ public class CartItemService {
                 cartItem.setQuantity(addToCartRequest.getQuantity());
                 CartItem newCartItem = cartItemRepo.save(cartItem);
                 if (newCartItem.getCartItemId() >= 0) {
+                    response.setCartItem(newCartItem);
+                    response.setProduct(cartItem.getProduct());
+                    response.setOurUsers(user.get());
                     response.setMessage("Added to Cart Successfully");
                     response.setStatusCode(200);
                 }
