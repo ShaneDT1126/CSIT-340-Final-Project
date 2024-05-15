@@ -17,10 +17,11 @@ public class OrderReqRes {
     private String message;
     private String error;
     private int statusCode;
-    private Orders orders;
+    private Orders order;
     private Date orderDate;
     private double totalAmount;
     private int status;
     private OurUsers user;
     private List<OrderItem> orderItems;
+    private List<Orders> orders;
 }
