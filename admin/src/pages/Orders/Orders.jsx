@@ -3,7 +3,7 @@ import './Orders'
 const Orders = () => {
   return (
     <div>
-      <p>Hello World</p>
+        
     </div>
   )
 }
