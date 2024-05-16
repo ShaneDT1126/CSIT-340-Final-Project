@@ -11,22 +11,22 @@ public class OrderController {
     @Autowired
     private OrdersService ordersService;
 
-    @PostMapping("public/addOrder/{username}")
+    @PostMapping("user/addOrder/{username}")
     public ResponseEntity<OrderReqRes> addOrder(@PathVariable String username){
         return ResponseEntity.ok(ordersService.addOrder(username));
     }
 
-    @GetMapping("public/getAllOrders")
+    @GetMapping("adminuser/getAllOrders")
     public ResponseEntity<OrderReqRes> getAllOrders(){
         return ResponseEntity.ok(ordersService.getAllOrders());
     }
 
-    @PutMapping("public/updateStatusToApprove/{orderId}")
+    @PutMapping("admin/updateStatusToApprove/{orderId}")
     public ResponseEntity<OrderReqRes> updateStatusToApprove(@PathVariable Integer orderId){
         return ResponseEntity.ok(ordersService.changeOrderStatusApprove(orderId));
     }
 
-    @GetMapping("public/getOrderDetails/{orderId}")
+    @GetMapping("adminuser/getOrderDetails/{orderId}")
     public ResponseEntity<OrderReqRes> getOrderDetails(@PathVariable Integer orderId){
         return ResponseEntity.ok(ordersService.getOrderDetails(orderId));
     }
