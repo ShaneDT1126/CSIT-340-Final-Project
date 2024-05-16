@@ -3,10 +3,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 4%;
+    margin-bottom: 10px;
 }
 
 .navbar .logo {
-    width: max(10%, 80px);
+    width: max(10%, 10px);
 }
 
 .navbar .profile {
