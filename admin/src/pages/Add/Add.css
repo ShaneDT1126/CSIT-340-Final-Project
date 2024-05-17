@@ -4,7 +4,6 @@
     margin-top: 50px;
     color: #6d6d6d;
     font-size: 16px;
-
 }
 
 .add form{
@@ -13,6 +12,7 @@
 
 .add-img-upload img {
     width: 120px;
+    cursor: pointer;
 }
 
 .add-product-name, .add-product-description {
@@ -31,6 +31,10 @@
 .add-category-price select, .add-category-price input {
     max-width: 120px;
     padding: 10px;
+}
+
+.add-category-price select {
+    cursor: pointer;
 }
 
 .add-btn {
