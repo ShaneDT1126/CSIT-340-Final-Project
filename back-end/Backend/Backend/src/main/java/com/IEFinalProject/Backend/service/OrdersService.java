@@ -141,5 +141,22 @@ public class OrdersService {
         return response;
     }
 
+    public OrderReqRes getOrderIfStatusNotApprove(){
+        OrderReqRes response = new OrderReqRes();
+
+        try {
+            List<Orders> orders = orderRepo.findByStatus(0);
+            if (!orders.isEmpty()){
+                response.setOrders(orders);
+                response.setStatus(200);
+                response.setMessage("Orders with not approved status");
+            }
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Occurred: " +e.getMessage());
+        }
+
+        return response;
+    }
 
 }
