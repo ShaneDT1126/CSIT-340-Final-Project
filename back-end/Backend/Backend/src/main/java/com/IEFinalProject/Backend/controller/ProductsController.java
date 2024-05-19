@@ -12,7 +12,7 @@ public class ProductsController {
     private ProductService productService;
 
 
-    @PostMapping("/admin/addProduct")
+    @PostMapping("/auth/addProduct")
     public ResponseEntity<ProductReqRes> addNewProduct(@RequestBody ProductReqRes product){
         return ResponseEntity.ok(productService.addProduct(product));
     }
@@ -22,7 +22,7 @@ public class ProductsController {
         return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    @DeleteMapping("/admin/delete/{productId}")
+    @DeleteMapping("/auth/delete/{productId}")
     public ResponseEntity<ProductReqRes> deleteProduct(@PathVariable Integer productId){
         return ResponseEntity.ok(productService.deleteProduct(productId));
     }
@@ -36,6 +36,7 @@ public class ProductsController {
     public ResponseEntity<ProductReqRes> getProductByCategory(@PathVariable String category){
         return ResponseEntity.ok(productService.getProductByCategory(category));
     }
+
 
 
 }

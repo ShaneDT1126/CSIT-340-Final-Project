@@ -17,13 +17,13 @@ public class ImageUploadDownloadController {
     private UploadDownloadImageService uploadDownloadImageService;
 
 
-    @PostMapping("/admin/uploadImage")
+    @PostMapping("/auth/uploadImage")
     public ResponseEntity<?> uploadImageToFileSystem(@RequestParam("image")MultipartFile file) throws IOException{
         String uploadImage = uploadDownloadImageService.uploadImageToFileSystem(file);
         return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 
-    @GetMapping("/admin/downloadImage/{fileName}")
+    @GetMapping("/auth/downloadImage/{fileName}")
     public ResponseEntity<?> downloadToFileSystem(@PathVariable String fileName) throws IOException{
         byte[] imageData = uploadDownloadImageService.downloadImageFromFileSystem(fileName);
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(imageData);
