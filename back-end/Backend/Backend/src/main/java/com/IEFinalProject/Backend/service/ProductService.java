@@ -130,5 +130,35 @@ public class ProductService {
         return response;
     }
 
+    @Transactional
+    public ProductReqRes updateProduct(ProductReqRes productUpdateRequest, Integer productId){
+        ProductReqRes response = new ProductReqRes();
+        try {
+            Optional<Product> product = productRepo.findById(productId);
+            Category category = categoryRepo.findByName(productUpdateRequest.getCategory().getName());
+            if (product.isPresent()){
+                Product newProduct = product.get();
+                category.setName(productUpdateRequest.getCategory().getName());
+                newProduct.setName(productUpdateRequest.getName());
+                newProduct.setDescription(productUpdateRequest.getDescription());
+                newProduct.setPrice(productUpdateRequest.getPrice());
+                newProduct.setCategory(category);
+                productRepo.save(newProduct);
+                response.setStatusCode(200);
+                response.setProduct(newProduct);
+                response.setMessage("Product Update Successfully");
+            }else {
+                response.setStatusCode(404);
+                response.setMessage("Product Not Found");
+
+            }
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            response.setStatusCode(500);
+            response.setError("Error Occurred: "+ e.getMessage());
+        }
+        return response;
+    }
+
 
 }

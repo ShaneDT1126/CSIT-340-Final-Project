@@ -2,6 +2,7 @@ package com.IEFinalProject.Backend.controller;
 
 import com.IEFinalProject.Backend.dto.ProductReqRes;
 import com.IEFinalProject.Backend.service.ProductService;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,10 @@ public class ProductsController {
         return ResponseEntity.ok(productService.getProductByCategory(category));
     }
 
+    @PutMapping("/auth/updateProduct/{productId}")
+    public ResponseEntity<ProductReqRes> updateProduct(@PathVariable Integer productId, @RequestBody ProductReqRes product){
+        return ResponseEntity.ok(productService.updateProduct(product,productId));
+    }
 
 
 }
