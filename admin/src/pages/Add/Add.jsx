@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
-import './Add.css'
-import { assets } from '../../assets/assets'
+import { useState } from 'react';
+//import { toast} from "react-toastify";
+import toast, {Toaster}from 'react-hot-toast';
+import './Add.css';
+import { assets } from '../../assets/assets';
 import axios from 'axios';
 
 
 const Add = () => {
   
-  const url = "http://localhost:4000";
-  const [image, setImage] = useState(false);
+  const url = "http://localhost:8080/auth";
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
   const [data, setData] = useState({
       name:"",
       description:"",
       price: "",
-      category: "Shirts"
-  })
+      category: "SHIRTS"
+  });
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
@@ -21,40 +24,68 @@ const Add = () => {
     setData(data=>({...data,[name]:value}))
   }
 
+  const uploadImage = async () => {
+    if (image){
+      const formData = new FormData();
+      formData.append("image",image);
+      const response = await axios.post(`${url}/uploadImage`, formData, {
+        headers: {
+          'Content-Type': "multipart/form-data"
+        }
+      });
+      if (response.status === 200){
+        setImageUrl(response.data)
+      }else {
+        console.log(response.status)
+      }
+    }
+  };
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const formData = new FormData ();
-    formData.append("name", data.name)
-    formData.append("description", data.description)
-    formData.append("price", Number(data.price))
-    formData.append("category",data.category)
-    formData.append("image", image)
-    const response = await axios.post('${url}/api/food/add',formData);
-    if (response.data.success) {
+    const productData = {
+      name: data.name,
+      description: data.description,
+      price: Number(data.price),
+      category: {
+        name: data.category
+      },
+      imageUrl: imageUrl
+    };
+
+    const response = await axios.post(`${url}/addProduct`, productData);
+    await uploadImage();
+
+    if (response.status === 200) {
       setData({
-        name:"",
-        description:"",
+        name: "",
+        description: "",
         price: "",
-        category: "Shirts"
-    })
-    setImage(false);
-    toast.success(response.data.message)
+        category: "SHIRTS"
+      });
+      setImage(null);
+      setImage('');
+      toast.success("Product Added Successfully!")
+      console.log(response.data.message)
     } else {
-      toast.error(response.data.message)
+      toast.error("Error Has Occurred!")
+      console.log(response.data.error)
     }
 
-  }
+  };
  
   return (
     <div className='add'>
       <form className = 'flex-col' onSubmit={onSubmitHandler}>
         <div className="add-img-upload flex-col">
           <p>Upload Image</p>
+
           <label htmlFor='image'>
             <img src={image?URL.createObjectURL(image):assets.upload_area} alt=""/>
           </label>
 
           <input onChange={(e)=>setImage(e.target.files[0])} type="file" id="image" hidden required />
+
         </div>
 
         <div className='add-product-name flex-col'>
@@ -71,16 +102,17 @@ const Add = () => {
           <div className="add-category flex-col">
             <p>Product Category</p>
             <select onChange = {onChangeHandler} name='category'>
-              <option value="Shirts">Shirts</option>
-              <option value="Bags">Bags</option>
-              <option value="Sling">Sling</option>
-              <option value="Jackets">Jackets</option>
+              <option value="SHIRTS">Shirts</option>
+              <option value="BAGS">Bags</option>
+              <option value="LANYARDS">Lanyards</option>
+              <option value="JACKETS">Jackets</option>
             </select>
           </div>
 
           <div className="add-price flex-col">
             <p>Product Price</p>
             <input onChange = {onChangeHandler} value = {data.price} type="Number" name='price' placeholder='₱20'/>
+            <Toaster/>
             </div>
           </div>
           <button type='submit' className='add-btn'>ADD</button>
