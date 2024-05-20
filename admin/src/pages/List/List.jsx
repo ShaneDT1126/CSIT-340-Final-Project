@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './List.css'
 import axios from "axios"
-import {toast} from "react-hot-toast"
+import {toast, Toaster} from "react-hot-toast"
 
 
 const List = () => {
@@ -59,7 +59,7 @@ const List = () => {
                   <p>{item?.category?.name || 'N/A'}</p>
                   <p>{item?.price || 'N/A'}</p>
                   <button onClick={()=> deleteProduct(item.productId)}>Delete</button>
-
+                  <Toaster/>
               </div>
           ))}
       </div>
