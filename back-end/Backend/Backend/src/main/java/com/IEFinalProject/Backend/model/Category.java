@@ -1,5 +1,6 @@
 package com.IEFinalProject.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"products"})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

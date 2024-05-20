@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@JsonIgnoreProperties({"product","category","productImages"})
+@JsonIgnoreProperties({"product","productImages"})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
