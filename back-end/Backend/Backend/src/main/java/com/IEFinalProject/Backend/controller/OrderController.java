@@ -16,17 +16,17 @@ public class OrderController {
         return ResponseEntity.ok(ordersService.addOrder(username));
     }
 
-    @GetMapping("adminuser/getAllOrders")
+    @GetMapping("auth/getAllOrders")
     public ResponseEntity<OrderReqRes> getAllOrders(){
         return ResponseEntity.ok(ordersService.getAllOrders());
     }
 
-    @PutMapping("admin/updateStatusToApprove/{orderId}")
+    @PutMapping("auth/updateStatusToApprove/{orderId}")
     public ResponseEntity<OrderReqRes> updateStatusToApprove(@PathVariable Integer orderId){
         return ResponseEntity.ok(ordersService.changeOrderStatusApprove(orderId));
     }
 
-    @GetMapping("adminuser/getOrderDetails/{orderId}")
+    @GetMapping("auth/getOrderDetails/{orderId}")
     public ResponseEntity<OrderReqRes> getOrderDetails(@PathVariable Integer orderId){
         return ResponseEntity.ok(ordersService.getOrderDetails(orderId));
     }
