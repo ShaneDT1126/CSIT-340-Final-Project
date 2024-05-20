@@ -1,26 +1,44 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './List.css'
 import axios from "axios"
-import {toast} from "react"
+import {toast} from "react-hot-toast"
+
 
 const List = () => {
-  // const url = "http://localhost:4000"
-  // const [list,setList] = useState([]);
+  const url = "http://localhost:8080/public";
+  const deleteUrl = "http://localhost:8080/auth"
+  const [list,setList] = useState([]);
 
-  // const fetchList = async () => {
-  //   // const response = await axios.get('${url)/api/food/list');
-  //   console.log(response.data);
-  //   if (response.data.success) {
-  //     setList(response.data.data)
-  //   }
-  //   else {
-  //   toast.error("Error")
-  //   }
-  // }
+  const fetchList = async () => {
+      try {
+          const response = await axios.get(`${url}/getAllProducts`);
+          setList(response.data.allProducts)
+          console.log(response.data.allProducts);
 
-  //  useEffect(()=> {
-  //   fetchList();
-  //  }, [])
+      } catch (error){
+          toast.error("Error fetching products")
+      }
+  }
+
+  const deleteProduct = async (productId) => {
+      try {
+          const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+
+          if (confirmDelete){
+              const response = await axios.delete(`${deleteUrl}/delete/${productId}`);
+              console.log(response.data);
+              fetchList();
+              toast.success('Success Deleting Product');
+          }
+
+      } catch (error){
+          toast.error('Error deleting user', error);
+      }
+  }
+
+   useEffect(()=> {
+    fetchList();
+   }, [])
 
 
   return (
@@ -28,22 +46,25 @@ const List = () => {
       <p>All Foods List</p>
       <div className="list-table">
         <div className="list-table-format title">
-          <b>Image</b>
+            <b>Product ID</b>
           <b>Name</b>
           <b>Category</b>
           <b>Price</b>
           <b>Action</b>
         </div>
-        {/* {list.map((item,index) => {
-          return (
-            <div key = {index} className='list-table-format'>
-                <img src = {'${url}/images'+item.image} alt='' />
-             </div> 
-          )
-        })} */}
+          {list.map((item, index) => (
+              <div key={index} className='list-table-format'>
+                  <p>{item?.productId || 'N/A'}</p>
+                  <p>{item?.name || 'N/A'}</p>
+                  <p>{item?.category?.name || 'N/A'}</p>
+                  <p>{item?.price || 'N/A'}</p>
+                  <button onClick={()=> deleteProduct(item.productId)}>Delete</button>
+
+              </div>
+          ))}
       </div>
     </div>
   )
 }
 
-export default List
+export default List;

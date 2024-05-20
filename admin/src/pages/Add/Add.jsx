@@ -1,5 +1,4 @@
 import { useState } from 'react';
-//import { toast} from "react-toastify";
 import toast, {Toaster}from 'react-hot-toast';
 import './Add.css';
 import { assets } from '../../assets/assets';
