@@ -23,7 +23,6 @@ const Orders = () => {
 
 
   return (
-    <div>
         <div className="order add">
           <h3>Orders Page</h3>
             <div className="order-list">
@@ -34,9 +33,8 @@ const Orders = () => {
                 <b>Total Amount</b>
                 <b>Status</b>
               </div>
-              <div className="list-table-format">
                 {orderList.map((item,index)=> (
-                    <div key={index} className='list-table-format'>
+                    <div key={index} className= "list-table-format">
                       <p>{item?.orderId || 'N/A'}</p>
                       <p>{item?.ourUsers?.username || 'N/A'}</p>
                       <p>{item?.orderDate || 'N/A'}</p>
@@ -46,10 +44,8 @@ const Orders = () => {
                       <Toaster/>
                     </div>
                 ))}
-              </div>
             </div>
         </div>
-    </div>
   )
 }
 
