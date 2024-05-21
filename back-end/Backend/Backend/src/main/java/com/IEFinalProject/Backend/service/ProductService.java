@@ -3,6 +3,7 @@ package com.IEFinalProject.Backend.service;
 import com.IEFinalProject.Backend.dto.ProductReqRes;
 import com.IEFinalProject.Backend.model.Category;
 import com.IEFinalProject.Backend.model.Product;
+import com.IEFinalProject.Backend.model.ProductImages;
 import com.IEFinalProject.Backend.repository.CategoryRepo;
 import com.IEFinalProject.Backend.repository.ProductRepo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +23,10 @@ public class ProductService {
     private ProductRepo productRepo;
     @Autowired
     private CategoryRepo categoryRepo;
-
+    private final String FOLDER_PATH = "C:\\Users\\shane\\repos\\CSIT-340-Final-Project\\back-end\\Backend\\Backend\\src\\main\\resources\\static\\";
 
     @Transactional
-    @JsonIgnoreProperties({"category"})
-    public ProductReqRes addProduct(ProductReqRes addProductRequest){
+    public ProductReqRes addProduct(ProductReqRes addProductRequest, MultipartFile imageFile){
         ProductReqRes response = new ProductReqRes();
 
         try {
@@ -34,7 +36,19 @@ public class ProductService {
             product.setDescription(addProductRequest.getDescription());
             product.setPrice(addProductRequest.getPrice());
             product.setCategory(category);
+
+            ProductImages image = new ProductImages();
+            image.setFileName(imageFile.getOriginalFilename());
+            image.setFileType(imageFile.getContentType());
+            image.setFilePath(FOLDER_PATH + imageFile.getOriginalFilename());
+            image.setProduct(product);
+
+            product.setProductImages(image);
+
             Product newProduct = productRepo.save(product);
+
+            imageFile.transferTo(new File(image.getFilePath()));
+
             if (newProduct.getProductId() >= 0){
                 response.setProduct(newProduct);
                 response.setMessage("Product Added Successfully");

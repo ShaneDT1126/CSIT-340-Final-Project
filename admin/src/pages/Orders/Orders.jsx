@@ -39,7 +39,6 @@ const Orders = () => {
                       <p>{item?.ourUsers?.username || 'N/A'}</p>
                       <p>{item?.orderDate || 'N/A'}</p>
                       <p>{item?.totalAmount || 'N/A'}</p>
-                      <p>{item?.status || 'N/A'}</p>
                       <button>Approve</button>
                       <Toaster/>
                     </div>

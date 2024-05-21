@@ -4,8 +4,10 @@ import com.IEFinalProject.Backend.dto.ProductReqRes;
 import com.IEFinalProject.Backend.service.ProductService;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class ProductsController {
@@ -14,8 +16,11 @@ public class ProductsController {
 
 
     @PostMapping("/auth/addProduct")
-    public ResponseEntity<ProductReqRes> addNewProduct(@RequestBody ProductReqRes product){
-        return ResponseEntity.ok(productService.addProduct(product));
+    public ResponseEntity<ProductReqRes> addNewProduct(
+            @RequestPart("productDetails")  ProductReqRes product,
+            @RequestPart("imageFile") MultipartFile productImage)
+    {
+       return ResponseEntity.ok(productService.addProduct(product,productImage));
     }
 
     @GetMapping("/public/getAllProducts")
