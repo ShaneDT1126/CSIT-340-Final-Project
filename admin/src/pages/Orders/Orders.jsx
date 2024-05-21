@@ -23,7 +23,7 @@ const Orders = () => {
 
 
   return (
-        <div className="order add">
+        <div className="order add">  
           <h3>Orders Page</h3>
             <div className="order-list">
               <div className="list-table-format title">
