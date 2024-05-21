@@ -3,7 +3,7 @@ import './MerchDisplay.css'
 import { StoreContext } from '../../context/StoreContext'
 import MerchItem from '../MerchItem/MerchItem'
 
-const MerchDisplay = ({category}) => {
+const MerchDisplay = ({category, setShowItemAdd }) => {
     const {food_list}= useContext(StoreContext);
   return (
     <div className='merch-display' id='merch-display'>
@@ -17,7 +17,8 @@ const MerchDisplay = ({category}) => {
             name={item.name}  
             description={item.description}
             price={item.price}  
-            image={item.image}/>
+            image={item.image}
+            setShowItemAdd={setShowItemAdd}/>
           }
         })}
       </div>
