@@ -21,8 +21,8 @@ public class ProductImages {
     private String fileType;
     private String filePath;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @OneToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "productId")
     private Product product;
 
 }
