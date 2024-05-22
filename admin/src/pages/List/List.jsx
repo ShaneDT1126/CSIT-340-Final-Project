@@ -12,7 +12,7 @@ const List = () => {
   const fetchList = async () => {
       try {
           const response = await axios.get(`${url}/getAllProducts`);
-          setList(response.data.allProducts)
+          setList(response.data.allProducts || [])
           console.log(response.data.allProducts);
 
       } catch (error){
@@ -43,25 +43,31 @@ const List = () => {
 
   return (
     <div className='list add flex-col'>
-      <p>All Foods List</p>
+      <p>All Products List</p>
       <div className="list-table">
-        <div className="list-table-format title">
-            <b>Product ID</b>
-          <b>Name</b>
-          <b>Category</b>
-          <b>Price</b>
-          <b>Action</b>
-        </div>
-          {list.map((item, index) => (
-              <div key={index} className='list-table-format'>
-                  <p>{item?.productId || 'N/A'}</p>
-                  <p>{item?.name || 'N/A'}</p>
-                  <p>{item?.category?.name || 'N/A'}</p>
-                  <p>{item?.price || 'N/A'}</p>
-                  <button onClick={()=> deleteProduct(item.productId)}>Delete</button>
-                  <Toaster/>
-              </div>
-          ))}
+          {list.length === 0 ? (
+              <p>No Current Products</p>
+          ) : (
+              <>
+                  <div className="list-table-format title">
+                      <b>Product ID</b>
+                      <b>Name</b>
+                      <b>Category</b>
+                      <b>Price</b>
+                      <b>Action</b>
+                  </div>
+                  {list.map((item, index) => (
+                      <div key={index} className='list-table-format'>
+                          <p>{item?.productId || 'N/A'}</p>
+                          <p>{item?.name || 'N/A'}</p>
+                          <p>{item?.category?.name || 'N/A'}</p>
+                          <p>{item?.price || 'N/A'}</p>
+                          <button onClick={()=> deleteProduct(item.productId)}>Delete</button>
+                          <Toaster/>
+                      </div>
+                  ))}
+              </>
+          )}
       </div>
     </div>
   )
