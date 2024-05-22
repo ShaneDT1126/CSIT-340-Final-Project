@@ -23,14 +23,14 @@ const Orders = () => {
 
 
   return (
-        <div className="order add">  
+        <div className="order add flex-col">  
           <h3>Orders Page</h3>
-            <div className="order-list">
+            <div className="order-table">
               {orderList.length === 0 ? (
-                  <p>No current orders</p>
+                  <p>No Current Orders</p>
               ) : (
                   <>
-                    <div className="list-table-format title">
+                    <div className="order-table-format title">
                       <b>Order ID</b>
                       <b>Username</b>
                       <b>Order Date</b>
@@ -38,7 +38,7 @@ const Orders = () => {
                       <b>Status</b>
                     </div>
                     {orderList.map((item, index) => (
-                        <div key={index} className="list-table-format">
+                        <div key={index} className="order-table-format">
                           <p>{item?.orderId || 'N/A'}</p>
                           <p>{item?.ourUsers?.username || 'N/A'}</p>
                           <p>{item?.orderDate || 'N/A'}</p>

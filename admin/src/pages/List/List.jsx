@@ -43,7 +43,7 @@ const List = () => {
 
   return (
     <div className='list add flex-col'>
-      <p>All Products List</p>
+      <h3>All Products List</h3>
       <div className="list-table">
           {list.length === 0 ? (
               <p>No Current Products</p>
