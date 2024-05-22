@@ -5,6 +5,7 @@ import com.IEFinalProject.Backend.model.Category;
 import com.IEFinalProject.Backend.model.Product;
 import com.IEFinalProject.Backend.model.ProductImages;
 import com.IEFinalProject.Backend.repository.CategoryRepo;
+import com.IEFinalProject.Backend.repository.ProductImagesRepo;
 import com.IEFinalProject.Backend.repository.ProductRepo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ProductService {
     private ProductRepo productRepo;
     @Autowired
     private CategoryRepo categoryRepo;
+    @Autowired
+    private ProductImagesRepo productImagesRepo;
     private final String FOLDER_PATH = "C:\\Users\\shane\\repos\\CSIT-340-Final-Project\\back-end\\Backend\\Backend\\src\\main\\resources\\static\\";
 
     @Transactional
@@ -69,6 +72,8 @@ public class ProductService {
         try {
             Optional<Product> product = productRepo.findById(productId);
             if(product.isPresent()){
+                ProductImages productImages = product.get().getProductImages();
+                productImagesRepo.deleteById(productImages.getImageId());
                 productRepo.deleteById(productId);
                 response.setStatusCode(200);
                 response.setMessage("User Deleted Successfully");
