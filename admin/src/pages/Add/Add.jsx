@@ -42,34 +42,53 @@ const Add = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    const productData = {
+    const formData = new FormData();
+
+    const productDetails = {
       name: data.name,
       description: data.description,
       price: Number(data.price),
       category: {
         name: data.category
-      },
-      imageUrl: imageUrl
-    };
-
-    const response = await axios.post(`${url}/addProduct`, productData);
-    await uploadImage();
-
-    if (response.status === 200) {
-      setData({
-        name: "",
-        description: "",
-        price: "",
-        category: "SHIRTS"
-      });
-      setImage(null);
-      setImage('');
-      toast.success("Product Added Successfully!")
-      console.log(response.data.message)
-    } else {
-      toast.error("Error Has Occurred!")
-      console.log(response.data.error)
+      }
     }
+
+    formData.append('productDetails', new Blob([JSON.stringify(productDetails)],{type:'application/json'}))
+    formData.append('imageFile', image);
+
+    try {
+      const response = await axios.post(
+          `${url}/addProduct`, formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data"
+
+            }
+
+          }
+      );
+      console.log(response.data);
+
+      if (response.status === 200) {
+        setData({
+          name: "",
+          description: "",
+          price: "",
+          category: "SHIRTS"
+        });
+        setImage(null);
+        setImageUrl('');
+        toast.success("Product Added Successfully");
+
+      } else {
+        console.log(response.data.error)
+        toast.error("Error has Occurred")
+      }
+    }catch (error){
+      console.log(error)
+      toast.error("Error has Occurred!")
+    }
+
 
   };
  
