@@ -4,6 +4,7 @@
     align-items: center;
     padding: 8px 4%;
     margin-bottom: 10px;
+    margin-top: 5px;
 }
 
 .navbar .logo {
@@ -11,5 +12,6 @@
 }
 
 .navbar .profile {
+    margin-top: 5px;
     width: 45px;
 }
