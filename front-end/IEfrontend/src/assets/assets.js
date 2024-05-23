@@ -100,7 +100,7 @@ export const menu_list = [
         menu_image: menu_3
     },
     {
-        menu_name: "Sling",
+        menu_name: "Lanyards",
         menu_image: menu_4
     }]
     // ,

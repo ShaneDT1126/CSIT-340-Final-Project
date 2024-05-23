@@ -34,7 +34,7 @@ const MerchDisplay = ({ category, setShowItemAdd }) => {
 
   return (
     <div className="merch-display" id="merch-display">
-      <h2>Top dishes near you</h2>
+      <h2>Top merch near you</h2>
       <div className="merch-display-list">
         {/* {food_list.map((item, index)=>{
           if(category==="All" || category === item.category) {
