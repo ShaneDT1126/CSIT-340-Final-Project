@@ -5,9 +5,12 @@ import com.IEFinalProject.Backend.service.ProductService;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 public class ProductsController {
@@ -46,6 +49,13 @@ public class ProductsController {
     @PutMapping("/auth/updateProduct/{productId}")
     public ResponseEntity<ProductReqRes> updateProduct(@PathVariable Integer productId, @RequestBody ProductReqRes product){
         return ResponseEntity.ok(productService.updateProduct(product,productId));
+    }
+
+    @GetMapping("/auth/getProductImage/{productId}")
+    public ResponseEntity<?> getProductImage(@PathVariable Integer productId)throws IOException {
+        byte[] productImage = productService.getProductPicture(productId);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png")).body(productImage);
     }
 
 
