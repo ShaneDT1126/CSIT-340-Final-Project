@@ -1,11 +1,11 @@
 .item-popup {
-    position: absolute;
+    position: fixed;
     z-index: 1;
     width: 100%;
     height: 100%;
     background-color: #00000090;
     display: grid;
-}
+}   
 
 .item-popup-container {
     place-self: center;
