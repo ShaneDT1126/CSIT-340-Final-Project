@@ -4,6 +4,8 @@ import { StoreContext } from "../../context/StoreContext";
 import MerchItem from "../MerchItem/MerchItem";
 import {toast, Toaster} from "react-hot-toast"
 import MerchItemAdd from "../MerchItemAdd/MerchItemAdd";
+import axios from "axios";
+
 
 const MerchDisplay = ({ category, setShowItemAdd }) => {
   // const {food_list}= useContext(StoreContext);
@@ -17,6 +19,7 @@ const MerchDisplay = ({ category, setShowItemAdd }) => {
     try {
       const response = await axios.get(`${url}/getAllProducts`);
       setList(response.data.allProducts || []);
+      console.log(response.data);
       console.log(response.data.allProducts);
     } catch (error) {
       toast.error("Error fetching products");
@@ -38,34 +41,37 @@ const MerchDisplay = ({ category, setShowItemAdd }) => {
       <div className="merch-display-list">
         {/* {food_list.map((item, index)=>{
           if(category==="All" || category === item.category) {
-            return <MerchItem 
-            key={index} 
-            id={item._id} 
-            name={item.name}  
+            return <MerchItem
+            key={index}
+            id={item._id}
+            name={item.name}
             description={item.description}
-            price={item.price}  
+            price={item.price}
             image={item.image}
             setShowItemAdd={setShowItemAdd}/>
           }
         })} */}
+
         {list.map((item, index) => {
-          if(category==="All" || category === item.category) {
+          if(category==="All" || category === item.category.name) {
+            console.log(item?.productId)
             return <>
-            <MerchItem 
-            key={index} 
-            id={item?.productId || 'N/A'} 
-            name={item?.name  || 'N/A'}  
+            <MerchItem
+            key={index}
+            id={item?.productId || 'N/A'}
+            name={item?.name  || 'N/A'}
             description={item?.description  || 'N/A'}
-            price={item?.price  || 'N/A'}  
-            image={item?.image  || 'N/A'}
+            price={item?.price  || 'N/A'}
+            //image={item?.productImages  || 'N/A'}
             // setShowItemAdd={setShowItemAdd}
             // list={list}
             onAddClick={() => handleAddClick(item)}
-            /> 
+            />
             <Toaster/>
             </>
-            
+
           }})}
+
       </div>
       {selectedItem && <MerchItemAdd 
         setShowItemAdd={setShowItemAdd}
