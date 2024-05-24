@@ -14,7 +14,7 @@ const Add = () => {
       name:"",
       description:"",
       price: "",
-      category: "SHIRTS"
+      category: "Shirts"
   });
 
   const onChangeHandler = (event) => {
@@ -23,22 +23,6 @@ const Add = () => {
     setData(data=>({...data,[name]:value}))
   }
 
-  const uploadImage = async () => {
-    if (image){
-      const formData = new FormData();
-      formData.append("image",image);
-      const response = await axios.post(`${url}/uploadImage`, formData, {
-        headers: {
-          'Content-Type': "multipart/form-data"
-        }
-      });
-      if (response.status === 200){
-        setImageUrl(response.data)
-      }else {
-        console.log(response.status)
-      }
-    }
-  };
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -74,7 +58,7 @@ const Add = () => {
           name: "",
           description: "",
           price: "",
-          category: "SHIRTS"
+          category: "Shirts"
         });
         setImage(null);
         setImageUrl('');
@@ -120,10 +104,10 @@ const Add = () => {
           <div className="add-category flex-col">
             <p>Product Category</p>
             <select onChange = {onChangeHandler} name='category'>
-              <option value="SHIRTS">Shirts</option>
-              <option value="BAGS">Bags</option>
-              <option value="LANYARDS">Lanyards</option>
-              <option value="JACKETS">Jackets</option>
+              <option value="Shirts">Shirts</option>
+              <option value="Bags">Bags</option>
+              <option value="Lanyards">Lanyards</option>
+              <option value="Jackets">Jackets</option>
             </select>
           </div>
 
