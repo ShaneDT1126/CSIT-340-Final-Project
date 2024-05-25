@@ -15,6 +15,8 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,6 +113,15 @@ public class ProductService {
         return response;
     }
 
+
+    public byte[] getProductPicture(Integer productId) throws IOException {
+        Optional<Product>product = productRepo.findById(productId);
+        String filePath = product.get().getProductImages().getFilePath();
+
+        byte[] images = Files.readAllBytes(new File(filePath).toPath());
+
+        return images;
+    }
 
     public ProductReqRes getProductDetails(Integer productId){
         ProductReqRes response = new ProductReqRes();
