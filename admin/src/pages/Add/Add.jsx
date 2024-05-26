@@ -21,13 +21,14 @@ const Add = () => {
     const name = event.target.name;
     const value = event.target.value;
     setData(data=>({...data,[name]:value}))
+    console.log("Name: " +value)
   }
 
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-
+    
     const productDetails = {
       name: data.name,
       description: data.description,

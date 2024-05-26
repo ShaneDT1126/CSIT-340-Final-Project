@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import AdminService from '../../service/AdminService';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -8,19 +9,53 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+    address: ''
+  });
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Passwords do not match');
-      return;
+    try {
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      const token = localStorage.getItem('token');
+      await AdminService.register(formData, token);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        username: '',
+        password: '',
+        email: '',
+        phoneNumber: '',
+        address: ''
+    });
+      alert('User registered successfully');
+      // Replace this with your registration logic
+      console.log('Registered:', { username, password });
+      navigate('/login');  
+    } catch (error) {
+      console.error('Error registering user:', error);
+      alert('An error occurred while registering user');
     }
-    // Replace this with your registration logic
-    console.log('Registered:', { username, password });
-    navigate('/login');
+    console.log("formData:", formData);
   };
 
   const handleBackToLogin = () => {
     navigate('/login');
+  };
+
+  const handleRegisterInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+      console.log("formData:", { ...formData, [name]: value }); // Log the value of formData
   };
 
   return (
@@ -33,8 +68,8 @@ const Register = () => {
             type="text"
             id="username"
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleRegisterInputChange}
             required
           />
         </div>
@@ -44,8 +79,8 @@ const Register = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleRegisterInputChange}
             required
           />
         </div>
@@ -57,6 +92,61 @@ const Register = () => {
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="register-input">
+          <label htmlFor="firstName">First name:</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleRegisterInputChange}
+            required
+          />
+        </div>
+        <div className="register-input">
+          <label htmlFor="lastName">Last name:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleRegisterInputChange}
+            required
+          />
+        </div>
+        <div className="register-input">
+          <label htmlFor="lastName">Email:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.email}
+            onChange={handleRegisterInputChange}
+            required
+          />
+        </div>
+        <div className="register-input">
+          <label htmlFor="address">Address:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.address}
+            onChange={handleRegisterInputChange}
+            required
+          />
+        </div>
+        <div className="register-input">
+          <label htmlFor="phoneNumber">Phone number:</label>
+          <input
+            type="number"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleRegisterInputChange}
             required
           />
         </div>
