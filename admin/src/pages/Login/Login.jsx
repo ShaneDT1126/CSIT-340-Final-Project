@@ -23,36 +23,38 @@ const Login = ({ setAuth }) => {
   };
 
   return (
-    <div className="login">
-      <h2>Admin Login</h2>
-      <form onSubmit={handleLogin}>
-        <div className="login-input">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="login-input">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="login-actions">
-          <button type="button" className="login-btn" onClick={handleRegisterClick}>Register</button>
-          <button type="submit" className="login-btn">Login</button>
-        </div>
-      </form>
+    <div className="login-container">
+      <div className="login">
+        <h2>Admin Login</h2>
+        <form onSubmit={handleLogin}>
+          <div className="login-input">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="login-input">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="login-actions">
+            <button type="button" className="login-btn" onClick={handleRegisterClick}>Register</button>
+            <button type="submit" className="login-btn">Login</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
