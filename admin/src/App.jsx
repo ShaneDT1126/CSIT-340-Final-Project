@@ -9,11 +9,9 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <div>
-      {isAuthenticated ? (
         <>
           <Navbar />
           <hr/>
@@ -27,13 +25,7 @@ const App = () => {
             </Routes>
           </div>
         </>
-      ) : (
-        <Routes>
-          <Route path="/login" element={<Login setAuth={setIsAuthenticated} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      )}
+      
     </div>
   );
 };
