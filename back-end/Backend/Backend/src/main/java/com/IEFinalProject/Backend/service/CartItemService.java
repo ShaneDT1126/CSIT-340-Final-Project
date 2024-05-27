@@ -27,7 +27,7 @@ public class CartItemService {
     private ProductRepo productRepo;
 
     @Transactional
-    public CartItemReqRes addCartItem (CartItemReqRes addToCartRequest,Integer productId, String username){
+    public CartItemReqRes addCartItem (Integer quantity,Integer productId, String username){
         CartItemReqRes response = new CartItemReqRes();
 
         try {
@@ -38,7 +38,7 @@ public class CartItemService {
                 CartItem cartItem = new CartItem();
                 cartItem.setCart(user.get().getCart());
                 cartItem.setProduct(product.get());
-                cartItem.setQuantity(addToCartRequest.getQuantity());
+                cartItem.setQuantity(quantity);
                 CartItem newCartItem = cartItemRepo.save(cartItem);
                 if (newCartItem.getCartItemId() >= 0) {
                     response.setCartItem(newCartItem);

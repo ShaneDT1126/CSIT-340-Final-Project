@@ -12,8 +12,8 @@ public class CartItemController {
     private CartItemService cartItemService;
 
     @PostMapping("/user/addToCart/{username}/{productId}")
-    public ResponseEntity<CartItemReqRes> addToCartItem(@RequestBody CartItemReqRes request, @PathVariable String username, @PathVariable Integer productId){
-        return ResponseEntity.ok(cartItemService.addCartItem(request,productId,username));
+    public ResponseEntity<CartItemReqRes> addToCartItem(@RequestBody Integer quantity, @PathVariable String username, @PathVariable Integer productId){
+        return ResponseEntity.ok(cartItemService.addCartItem(quantity,productId,username));
     }
 
     @DeleteMapping("/user/deleteCartItem/{cartId}")
