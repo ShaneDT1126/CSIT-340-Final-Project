@@ -22,7 +22,7 @@ public class CartService {
     private UsersRepo usersRepo;
 
 
-    //@JsonIgnoreProperties({"cart_item","cart","ourUsers"})
+
     public CartReqRes getCart(String username){
         CartReqRes response = new CartReqRes();
 
