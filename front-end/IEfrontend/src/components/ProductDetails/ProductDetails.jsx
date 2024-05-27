@@ -3,6 +3,7 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import CartItemService from "../../service/CartItemService.js";
 import './ProductDetails.css'
+import {toast, Toaster} from "react-hot-toast";
 const ProductDetails = ({appUsername, productId}) => {
     const url = "http://localhost:8080/";
     const {id,username} = useParams();
@@ -24,6 +25,7 @@ const ProductDetails = ({appUsername, productId}) => {
 
            const response = await CartItemService.addToCart(appUsername,id,quantity,token);
            if (response.statusCode === 200){
+               toast.success("Added to Cart Successfully!")
                console.log("added to cart successfully");
            }
         } catch (error){
@@ -56,6 +58,7 @@ const ProductDetails = ({appUsername, productId}) => {
                 />
             </div>
             <button onClick={handleAddToCart}>Add to Cart</button>
+            <Toaster/>
         </div>
     );
 };

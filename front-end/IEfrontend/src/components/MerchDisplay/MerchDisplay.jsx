@@ -40,6 +40,7 @@ const MerchDisplay = ({ category, setShowItemAdd, appUsername }) => {
 
       const response = await CartItemService.addToCart(appUsername,item.productId,1,token);
       if (response.statusCode === 200){
+        toast.success("Added to Cart Successfully!")
         console.log("added to cart successfully");
       }
     } catch (error){
