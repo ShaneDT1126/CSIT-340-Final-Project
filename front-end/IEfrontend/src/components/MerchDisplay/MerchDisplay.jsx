@@ -5,6 +5,7 @@ import MerchItem from "../MerchItem/MerchItem";
 import {toast, Toaster} from "react-hot-toast"
 import MerchItemAdd from "../MerchItemAdd/MerchItemAdd";
 import axios from "axios";
+import CartItemService from "../../service/CartItemService.js";
 
 
 const MerchDisplay = ({ category, setShowItemAdd, appUsername }) => {
@@ -31,9 +32,19 @@ const MerchDisplay = ({ category, setShowItemAdd, appUsername }) => {
     fetchList();
   }, []);
   
-  const handleAddClick = (item) => {
-    setSelectedItem(item);
-    setShowItemAdd(true);
+  const handleAddClick = async (item) => {
+    // setSelectedItem(item);
+    // setShowItemAdd(true);
+    try {
+      const token = localStorage.getItem('token');
+
+      const response = await CartItemService.addToCart(appUsername,item.productId,1,token);
+      if (response.statusCode === 200){
+        console.log("added to cart successfully");
+      }
+    } catch (error){
+      console.log("can't add to cart error: ",error)
+    }
   };
 
   return (
