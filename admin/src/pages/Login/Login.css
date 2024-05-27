@@ -1,63 +1,67 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  .login {
-    background-color: #f7f7f7;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 300px;
-    text-align: center;
-  }
-  
-  .login h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .login-input {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .login-input label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .login-input input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .login-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .login-btn {
-    background-color: #2D2D2D;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .login-btn:hover {
-    background-color: #FDBB03;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.login {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 300px;
+  text-align: center;
+  font-family: Outfit;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+  font-family: Outfit;
+}
+
+.login h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.login-input {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.login-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login-input input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-btn {
+  background-color: #2D2D2D;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #FDBB03;
+}
