@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
-const Cart = () => {
+const Cart = ({appUsername}) => {
   const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
   const navigate = useNavigate();
   return (
@@ -60,13 +60,13 @@ const Cart = () => {
           <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promocode">
-          <div>
-            <p>If you have a promo code, Enter it here</p>
-            <div className="cart-promocode-input">
-              <input type="text" placeholder="promo code" />
-              <button>Submit</button>
-            </div>
-          </div>
+          {/*<div>*/}
+          {/*  <p>If you have a promo code, Enter it here</p>*/}
+          {/*  <div className="cart-promocode-input">*/}
+          {/*    <input type="text" placeholder="promo code" />*/}
+          {/*    <button>Submit</button>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>

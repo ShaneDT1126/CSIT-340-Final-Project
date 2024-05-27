@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import { Link, Navigate } from "react-router-dom";
+import {Link, Navigate, useParams} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import UserService from "../../service/UserService";
 
-const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn }) => {
+const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn, username }) => {
   const [menu, setMenu] = useState("home");
   const { getTotalCartAmount } = useContext(StoreContext);
   const navigate = useNavigate();
+  // const {username} = useParams();
 
   const handleLogout = async (e) => {
     try {
@@ -24,17 +25,37 @@ const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn }) => {
 
   return (
     <div className="navbar">
-      <Link to="/">
-        <img src={assets.logo1} alt="" className="logo1" />
-      </Link>
+      {!isLoggedIn
+      ?
+          <Link to="/">
+            <img src={assets.logo1} alt="" className="logo1" />
+          </Link>
+          :
+          <Link to={`${username}`}>
+            <img src={assets.logo1} alt="" className="logo1" />
+          </Link>
+      }
+
       <ul className="navbar-menu">
-        <Link
-          to="/"
-          onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
-        >
-          Home
-        </Link>
+        {!isLoggedIn
+            ?
+            <Link
+                to="/"
+                onClick={() => setMenu("home")}
+                className={menu === "home" ? "active" : ""}
+            >
+              Home
+            </Link>
+            :
+            <Link
+                to={`${username}`}
+                onClick={() => setMenu("home")}
+                className={menu === "home" ? "active" : ""}
+            >
+              Home
+            </Link>
+
+        }
         <a
           href="#explore-menu"
           onClick={() => setMenu("menu")}
@@ -52,21 +73,23 @@ const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn }) => {
         </a>
       </ul>
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
+        {/*<img src={assets.search_icon} alt="" />*/}
         <div className="navbar-search-icon">
-          {!isLoggedIn 
-          ? 
-          <img src={assets.basket_icon} alt="" /> 
-          : 
-          <Link to="/cart">
+          {!isLoggedIn
+          ?
+          <></>
+          :
+          <Link to={`${username}/cart`}>
             <img src={assets.basket_icon} alt="" />
-          </Link>}
-          
+          </Link>
+
+          }
+
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        {!isLoggedIn 
-        ? 
-        <button onClick={() => setShowLogin(true)}>Sign in</button>
+        {!isLoggedIn
+            ?
+            <button onClick={() => setShowLogin(true)}>Sign in</button>
         :
         <button onClick={handleLogout}>Sign out</button>
         }

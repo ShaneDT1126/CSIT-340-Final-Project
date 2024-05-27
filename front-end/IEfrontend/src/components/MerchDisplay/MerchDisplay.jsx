@@ -7,13 +7,14 @@ import MerchItemAdd from "../MerchItemAdd/MerchItemAdd";
 import axios from "axios";
 
 
-const MerchDisplay = ({ category, setShowItemAdd }) => {
+const MerchDisplay = ({ category, setShowItemAdd, appUsername }) => {
   // const {food_list}= useContext(StoreContext);
     const [selectedItem, setSelectedItem] = useState(null);
 
   const [list,setList] = useState([]);
   const url = "http://localhost:8080/public";
   const deleteUrl = "http://localhost:8080/auth";
+  const user = appUsername;
 
   const fetchList = async () => {
     try {
@@ -66,6 +67,7 @@ const MerchDisplay = ({ category, setShowItemAdd }) => {
             // setShowItemAdd={setShowItemAdd}
             // list={list}
             onAddClick={() => handleAddClick(item)}
+            appUsername={user}
             />
             <Toaster/>
             </>

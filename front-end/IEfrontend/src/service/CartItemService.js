@@ -101,6 +101,21 @@ class CartItemService {
         }
     }
 
+    static async addToCart(username, productId, quantity, token) {
+        try {
+            const response = await axios.post(`${CartItemService.BASE_URL}/user/addToCart/${username}/${productId}`,quantity,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type" : "application/json"
+                    }
+                })
+            return response.data;
+        }catch (error){
+            throw error;
+        }
+    };
+
     static logout(){
         localStorage.removeItem('token')
         localStorage.removeItem('role')
@@ -128,4 +143,4 @@ class CartItemService {
 
 }
 
-export default UserService;
+export default CartItemService;
