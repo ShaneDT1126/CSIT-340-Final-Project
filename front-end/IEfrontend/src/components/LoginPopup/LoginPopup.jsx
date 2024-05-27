@@ -53,11 +53,11 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
   });
 
   const PhoneNumberInput = () => {
-    const inputRef = useRef(null); // Create a ref to the input field
+    const inputRef = useRef(null);
   
     const handleNumInputChange = (e) => {
       const inputValue = e.target.value;
-      // Check if the input value is a valid numerical character
+
       if (/^[0-9]*$/.test(inputValue)) {
         // Update phoneNumber state in formData
         setFormData({ ...formData, phoneNumber: inputValue });
@@ -67,14 +67,14 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
     
     return (
       <input
-        ref={inputRef} // Assign the ref to the input field
+        ref={inputRef}
         type="tel"
         placeholder="Enter your phone number"
         maxLength={11}
         required
         inputMode="tel"
         value={formData.phoneNumber}
-        onChange={handleNumInputChange} // Pass handleNumInputChange to handle phone number changes
+        onChange={handleNumInputChange}
         style={{ WebkitAppearance: 'none', MozAppearance: 'textfield', appearance: 'none' }}
       />
     );
@@ -89,12 +89,9 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
     const handleRegisterSubmit = async (e) => {
       e.preventDefault();
       try {
-          // Call the register method from UserService
-
           const token = localStorage.getItem('token');
           await UserService.register(formData, token);
 
-          // Clear the form fields after successful registration
           setFormData({
               firstName: '',
               lastName: '',
@@ -119,11 +116,8 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
 
   return (
     <div className="login-popup">
-      {/* <form action="" className="login-popup-container" onSubmit={handleLoginSubmit}> */}
       <form action="" className="login-popup-container" onSubmit={currState === "Login" ? handleLoginSubmit : handleRegisterSubmit}>
-      {/* for this, if the currState is "Login", then I want you to set onSubmit to handleLoginSubmit
-          if the currState is "Sign up", I want you to set onSubmit to handleRegisterSubmit */}
-        <div className="login-popup-title">
+      <div className="login-popup-title">
           <h2>{currState}</h2>
           {error && <p className="error-message">{error}</p>}
           <img
@@ -154,7 +148,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
               <input type="password" name="password" value={formData.password} onChange={handleRegisterInputChange} placeholder="Enter your password" required />
               <input type="email" name="email" value={formData.email} onChange={handleRegisterInputChange} placeholder="Enter your email"  required />
               <input type="text" name="address" value={formData.address} onChange={handleRegisterInputChange} placeholder="Enter your address" required />
-              <PhoneNumberInput /> {/* Including the PhoneNumberInput component */}
+              <PhoneNumberInput />
             </>
           )}
         </div>
