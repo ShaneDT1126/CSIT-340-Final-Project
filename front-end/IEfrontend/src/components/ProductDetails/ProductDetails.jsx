@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import CartItemService from "../../service/CartItemService.js";
-
+import './ProductDetails.css'
 const ProductDetails = ({appUsername, productId}) => {
     const url = "http://localhost:8080/";
     const {id,username} = useParams();

@@ -1,0 +1,23 @@
+/* src/pages/ProductDetails/ProductDetails.css */
+.product-details {
+    padding: 20px;
+}
+
+.product-details img {
+    max-width: 300px;
+    height: auto;
+}
+
+.product-details h1 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.product-details p {
+    margin: 5px 0;
+}
+
+.product-details input {
+    width: 50px;
+    margin-left: 10px;
+}
