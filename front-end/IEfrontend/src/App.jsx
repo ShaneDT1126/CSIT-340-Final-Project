@@ -62,7 +62,7 @@ const App = () => {
               element={<Home setShowItemAdd={setShowItemAdd} appUsername={usernameApp} />}
             />
               <Route path={`${usernameApp}/cart`} element={<Cart appUsername={usernameApp}/>} />
-              <Route path={`${usernameApp}/order`} element={<PlaceOrder />} />
+              <Route path={`${usernameApp}/order`} element={<PlaceOrder appUsername={usernameApp}/>} />
               <Route path={`/products/:id`} element={<ProductDetails appUsername={usernameApp}/>}/>
               <Route path="/product" element={<ProductDetails/>}/>
               <Route path="*" element={<div>404: Page not found</div>} />
