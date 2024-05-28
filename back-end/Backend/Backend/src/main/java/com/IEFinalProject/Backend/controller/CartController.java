@@ -23,4 +23,10 @@ public class CartController {
     public ResponseEntity<Double> getTotalAmount(@PathVariable String username){
         return ResponseEntity.ok(cartService.getTotalAmount(username));
     }
+
+    @GetMapping("/user/getUserCart/{username}")
+    public ResponseEntity<CartItemReqRes> getUserCart(@PathVariable String username){
+        return ResponseEntity.ok(cartService.getUserCart(username));
+    }
+
 }
