@@ -11,7 +11,7 @@ const Cart = ({appUsername}) => {
   const [totalAmount, setTotalAmount] = useState(null);
   const navigate = useNavigate();
   const tax = 15;
-
+  console.log(appUsername)
 
   const fetchItems = async () =>{
     const token = localStorage.getItem('token')
@@ -86,7 +86,7 @@ const Cart = ({appUsername}) => {
                 <div className="cart-items-title cart-items-item">
                   <img src={`http://localhost:8080/auth/getProductImage/${item.product?.productId}`} alt={''} />
                   <p>{item?.product?.name || 'NA'}</p>
-                  <p>{item?.product?.price || 'NA'}</p>
+                  <p>₱{item?.product?.price || 'NA'}</p>
                   <p>{item?.quantity || 'NA'}</p>
                   <p onClick={()=>removeToCart(item?.cartItemId)} className="cross">
                     x
@@ -133,7 +133,7 @@ const Cart = ({appUsername}) => {
               }
             </div>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+          <button onClick={()=>navigate(`/${appUsername}/order`)}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promocode">
           <div>

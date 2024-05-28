@@ -15,18 +15,7 @@ const App = () => {
   const [usernameApp, setUsernameApp] = useState("");
 
   const [showItemAdd, setShowItemAdd] = useState(false);
-    // const routes = useRoutes([
-    //     { path: "/", element: <Home setShowItemAdd={setShowItemAdd} /> },
-    //     {
-    //         path: "/:username/",
-    //         element: <Home setShowItemAdd={setShowItemAdd} />,
-    //         children: [
-    //             { path: "cart", element: <Cart /> },
-    //             { path: "order", element: <PlaceOrder /> },
-    //         ],
-    //     },
-    //     { path: "*", element: <div>404: Page not found</div> },
-    // ]);
+
   return (
     // <>
     //   {showLogin ? (
@@ -73,7 +62,7 @@ const App = () => {
               element={<Home setShowItemAdd={setShowItemAdd} appUsername={usernameApp} />}
             />
               <Route path={`${usernameApp}/cart`} element={<Cart appUsername={usernameApp}/>} />
-              <Route path="/order" element={<PlaceOrder />} />
+              <Route path={`${usernameApp}/order`} element={<PlaceOrder />} />
               <Route path={`/products/:id`} element={<ProductDetails appUsername={usernameApp}/>}/>
               <Route path="/product" element={<ProductDetails/>}/>
               <Route path="*" element={<div>404: Page not found</div>} />
