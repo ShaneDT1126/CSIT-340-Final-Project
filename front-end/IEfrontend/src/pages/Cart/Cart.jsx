@@ -30,7 +30,7 @@ const Cart = ({appUsername}) => {
         }
       });
       setCartItem(response.data.cartItemDTO || []);
-      setTotalAmount(totalAmount.data || 'No Items in Cart')
+      setTotalAmount(totalAmount.data )
       console.log("Data: ",response.data.cartItemDTO)
       console.log("Success!: ",response.data)
       console.log(totalAmount.data)
@@ -106,17 +106,31 @@ const Cart = ({appUsername}) => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>₱{totalAmount}</p>
+              {totalAmount === 0 || totalAmount === null
+                  ?
+                  <p>No Cart Items</p>
+                  :
+                  <p>₱{totalAmount}</p>
+              }
+
             </div>
             <hr></hr>
             <div className="cart-total-details">
               <p>Transaction Fee</p>
-              <p>₱{tax}</p>
+              {totalAmount === 0 || totalAmount === null
+                  ?
+                  <p>No Cart Items</p>
+                  :
+                  <p>₱{tax}</p>
+              }
             </div>
             <hr></hr>
             <div className="cart-total-details">
               <b>Total</b>
-              <b>₱{totalAmount + tax}</b>
+              {totalAmount === null || totalAmount === 0
+                  ? <b>No Cart Items</b>
+                  : <b>₱{tax + totalAmount}</b>
+              }
             </div>
           </div>
           <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
