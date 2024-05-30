@@ -2,10 +2,13 @@ import React, {useContext, useEffect, useState} from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import OrderService from "../../service/OrderService.js";
+import {toast, Toaster} from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 const PlaceOrder = ({appUsername}) => {
     const [totalAmount, setTotalAmount] = useState(0);
     const tax = 15;
-  // const {getTotalCartAmount} = useContext(StoreContext)
+    const navigate = useNavigate();
 
     const getTotalAmount = async () =>{
         const token = localStorage.getItem('token');
@@ -24,6 +27,22 @@ const PlaceOrder = ({appUsername}) => {
             console.log("Error: ", error);
         }
     };
+
+
+
+    const addToOrder = async () =>{
+        const token = localStorage.getItem('token');
+        try {
+            const response = await OrderService.addOrder(appUsername,token);
+            if(response.status === 200){
+                toast.success("Order Success!")
+                navigate(`/${appUsername}`)
+            }
+        } catch (error){
+            toast.error("Order Unsuccessful!")
+            console.log("Error: ", error)
+        }
+    }
 
     useEffect(() => {
         getTotalAmount()
@@ -68,7 +87,8 @@ const PlaceOrder = ({appUsername}) => {
               <b>₱{totalAmount + tax}</b>
             </div>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEED TO PAYMENT</button>
+          <button onClick={addToOrder}>PROCEED TO PAYMENT</button>
+          <Toaster/>
         </div>
       </div>
     </form>

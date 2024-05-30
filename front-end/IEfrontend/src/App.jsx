@@ -8,6 +8,9 @@ import Footer from "./components/Footer/Footer";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import MerchItemAdd from "./components/MerchItemAdd/MerchItemAdd";
 import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
+import PaymentCancel from "./pages/Payment/PaymentCancel.jsx";
+import PaymentError from "./pages/Payment/PaymentError.jsx";
+import PaymentSuccess from "./pages/Payment/PaymentSuccess.jsx";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -61,11 +64,14 @@ const App = () => {
               path={`/:username`}
               element={<Home setShowItemAdd={setShowItemAdd} appUsername={usernameApp} />}
             />
-              <Route path={`${usernameApp}/cart`} element={<Cart appUsername={usernameApp}/>} />
-              <Route path={`${usernameApp}/order`} element={<PlaceOrder appUsername={usernameApp}/>} />
-              <Route path={`/products/:id`} element={<ProductDetails appUsername={usernameApp}/>}/>
-              <Route path="/product" element={<ProductDetails/>}/>
-              <Route path="*" element={<div>404: Page not found</div>} />
+            <Route path={`${usernameApp}/cart`} element={<Cart appUsername={usernameApp}/>} />
+            <Route path={`${usernameApp}/order`} element={<PlaceOrder appUsername={usernameApp}/>} />
+            <Route path={`/products/:id`} element={<ProductDetails appUsername={usernameApp}/>}/>
+            <Route path="/product" element={<ProductDetails/>}/>
+            <Route path="*" element={<div>404: Page not found</div>} />
+            <Route path="/payment/success" element={<PaymentSuccess/>} />
+            <Route path="/payment/error" element={<PaymentError/>}/>
+            <Route path="payment/cancel" element={<PaymentCancel/>}/>
           </Routes>
 
         </div>

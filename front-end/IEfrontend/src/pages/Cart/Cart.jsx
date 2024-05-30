@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import CartItemService from "../../service/CartItemService.js";
 import axios from "axios";
 import {toast, Toaster} from "react-hot-toast";
+import OrderService from "../../service/OrderService.js";
 const Cart = ({appUsername}) => {
   // const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(StoreContext);
   const [cartItem, setCartItem] = useState([]);
   const [totalAmount, setTotalAmount] = useState(null);
   const navigate = useNavigate();
   const tax = 15;
+  const paymentTotal = totalAmount + tax;
   console.log(appUsername)
 
   const fetchItems = async () =>{
@@ -62,7 +64,30 @@ const Cart = ({appUsername}) => {
 
   };
 
+  const addToOrder = async () =>{
+    const token = localStorage.getItem('token');
+    try {
+      const response = await OrderService.addOrder(appUsername,token);
+      if(response.status === 200){
+        console.log("Order Success!")
+      }
+    } catch (error){
+      toast.error("Order Unsuccessful!")
+      console.log("Error: ", error)
+    }
+  }
 
+  const payWithPaypal = async () =>{
+    try {
+      const response = await axios.post(`http://localhost:8080/auth/payment/create/${appUsername}/${paymentTotal}`,null);
+      console.log(response.data);
+      addToOrder();
+      window.open(response.data);
+
+    }catch (error){
+      console.log("Error Occured: ", error);
+    }
+  }
 
   useEffect(() => {
     fetchItems();
@@ -133,7 +158,8 @@ const Cart = ({appUsername}) => {
               }
             </div>
           </div>
-          <button onClick={()=>navigate(`/${appUsername}/order`)}>PROCEED TO CHECKOUT</button>
+          {/*()=>navigate(`/${appUsername}/order`)*/}
+          <button onClick={payWithPaypal}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cart-promocode">
           <div>
