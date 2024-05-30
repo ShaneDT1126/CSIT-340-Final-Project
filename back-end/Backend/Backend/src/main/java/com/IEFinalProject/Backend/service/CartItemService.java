@@ -35,21 +35,42 @@ public class CartItemService {
             Optional<Product> product = productRepo.findById(productId);
 
             if (user.isPresent() && product.isPresent()) {
-                CartItem cartItem = new CartItem();
-                cartItem.setCart(user.get().getCart());
-                cartItem.setProduct(product.get());
-                cartItem.setQuantity(quantity);
-                CartItem newCartItem = cartItemRepo.save(cartItem);
-                if (newCartItem.getCartItemId() >= 0) {
-                    response.setCartItem(newCartItem);
-                    response.setProduct(cartItem.getProduct());
-                    response.setOurUsers(user.get());
-                    response.setMessage("Added to Cart Successfully");
-                    response.setStatusCode(200);
+                Cart cart = user.get().getCart();
+                List<CartItem> cartItems = cart.getCartItems();
+                boolean doesItemExist = false;
+
+                for (CartItem cartItem : cartItems){
+                    if (cartItem.getProduct().getProductId().equals(productId)){
+                        cartItem.setQuantity(cartItem.getQuantity() + quantity);
+                        cartItemRepo.save(cartItem);
+                        doesItemExist = true;
+                        response.setStatusCode(200);
+                        response.setCartItem(cartItem);
+                        response.setProduct(cartItem.getProduct());
+                        response.setOurUsers(user.get());
+                        response.setMessage("Added to Cart Successfully!");
+                        break;
+                    }
                 }
-            } else {
-                response.setStatusCode(404);
-                response.setMessage("No Users Found");
+
+                if (!doesItemExist){
+                    CartItem cartItem = new CartItem();
+                    cartItem.setCart(cart);
+                    cartItem.setProduct(product.get());
+                    cartItem.setQuantity(quantity);
+                    CartItem newCartItem = cartItemRepo.save(cartItem);
+
+                    if (newCartItem.getCartItemId() >= 0) {
+                        response.setCartItem(newCartItem);
+                        response.setProduct(cartItem.getProduct());
+                        response.setOurUsers(user.get());
+                        response.setMessage("Added to Cart Successfully");
+                        response.setStatusCode(200);
+                    }
+                } else {
+                    response.setStatusCode(404);
+                    response.setMessage("No Users Found or Product Found");
+                }
             }
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

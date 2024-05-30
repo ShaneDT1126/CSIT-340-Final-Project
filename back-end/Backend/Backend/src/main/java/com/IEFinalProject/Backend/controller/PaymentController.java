@@ -22,7 +22,7 @@ public class PaymentController {
         return "index";
     }
 
-    @PostMapping("/payment/create/{username}/{total}")
+    @PostMapping("auth/payment/create/{username}/{total}")
     public String createPayment(@PathVariable String username, @PathVariable double total) {
 
         try {
@@ -49,7 +49,7 @@ public class PaymentController {
         return "localhost:5173/"+username+"/payment/error";
     }
 
-    @GetMapping("/payment/success")
+    @GetMapping("auth/payment/success")
     public String paymentSuccess(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId){
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
@@ -62,12 +62,12 @@ public class PaymentController {
         return "paymentSuccess";
     }
 
-    @GetMapping("/payment/cancel")
+    @GetMapping("auth/payment/cancel")
     public String paymentCancel(){
         return "paymentCancel";
     }
 
-    @GetMapping("/payment/error")
+    @GetMapping("auth/payment/error")
     public String paymentError(){
         return "paymentError";
     }
