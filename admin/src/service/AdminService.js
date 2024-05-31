@@ -26,80 +26,17 @@ class AdminService{
         }
     }
 
-    static async getAllUsers(token){
-        try{
-
-            const response = await axios.get(`${AdminService.BASE_URL}/admin/get-all-users`, 
-        {
-            headers: {Authorization: `Bearer ${token}`}
-        })
-
+    static async changeOrderStatus(orderId, status){
+        try {
+            const response = await axios.put(`${AdminService.BASE_URL}/auth/changeOrderStatus/${orderId}`,status);
             return response.data;
+        }catch (error){
+            console.log("Error: ", error)
+            throw error;
 
-        } catch (err){
-            throw err;
         }
     }
 
-    static async getYourProfile(token){
-        try{
-
-            const response = await axios.get(`${AdminService.BASE_URL}/adminuser/get-profile`, 
-        {
-            headers: {Authorization: `Bearer ${token}`}
-        })
-
-            return response.data;
-
-        } catch (err){
-            throw err;
-        }
-    }
-
-    static async getUserById(userId, token){
-        try{
-
-            const response = await axios.get(`${AdminService.BASE_URL}/admin/get-user/${userId}`, 
-        {
-            headers: {Authorization: `Bearer ${token}`}
-        })
-
-            return response.data;
-
-        } catch (err){
-            throw err;
-        }
-    }
-
-    static async deleteUserById(userId, token){
-        try{
-
-            const response = await axios.delete(`${AdminService.BASE_URL}/admin/delete/${userId}`, 
-        {
-            headers: {Authorization: `Bearer ${token}`}
-        })
-
-            return response.data;
-
-        } catch (err){
-            throw err;
-        }
-    }
-
-    static async updateUser(userId, userData, token){
-        try{
-
-            const response = await axios.put(`${AdminService.BASE_URL}/admin/update/${userId}`, userData,
-        {
-            headers: {Authorization: `Bearer ${token}`}
-        })
-
-            return response.data;
-
-        } catch (err){
-            throw err;
-        }
-    }
 
     static logout(){
         localStorage.removeItem('token')

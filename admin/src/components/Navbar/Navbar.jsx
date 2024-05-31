@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Navbar.css';
 import { assets } from '../../assets/assets';
+import AdminService from "../../service/AdminService.js";
+import {useNavigate} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (setAuth) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleToggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -28,8 +31,15 @@ const Navbar = () => {
     // Implement sign in functionality
   };
 
-  const handleLogout = () => {
-    console.log('Logout clicked');
+  const handleLogout = async () => {
+    try {
+      await AdminService.logout();
+      setAuth(false);
+      navigate(`/login`);
+    }catch (error){
+      console.log("Error: ", error);
+    }
+
     // Implement logout functionality
   };
 
