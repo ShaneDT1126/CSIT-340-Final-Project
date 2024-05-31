@@ -28,14 +28,16 @@ const App = () => {
           </div>
         </>
       ) : (
+        <div className='login-content'>
         <Routes>
           <Route path="/login" element={<Login setAuth={setIsAuthenticated} />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
+        </div>
       )}
     </div>
   );
 };
 
-export default App;
+export default App; 

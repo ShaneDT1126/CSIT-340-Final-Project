@@ -1,4 +1,4 @@
-body, html {
+.login-content {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -6,6 +6,8 @@ body, html {
     justify-content: center;
     align-items: center;
     font-family: Arial, sans-serif;
+    min-height: 100vh;
+    background-color: #fcfcfc;
   }
 
   .register {
