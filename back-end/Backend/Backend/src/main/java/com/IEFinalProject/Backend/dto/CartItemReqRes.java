@@ -25,4 +25,5 @@ public class CartItemReqRes {
     private List<CartItem> cartItems;
     private Cart cart;
     private Product product;
+    private List<CartItemDTO> cartItemDTO;
 }

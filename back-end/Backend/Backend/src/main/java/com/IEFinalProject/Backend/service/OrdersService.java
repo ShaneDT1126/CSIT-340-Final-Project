@@ -2,10 +2,7 @@ package com.IEFinalProject.Backend.service;
 
 import com.IEFinalProject.Backend.dto.OrderReqRes;
 import com.IEFinalProject.Backend.model.*;
-import com.IEFinalProject.Backend.repository.CartItemRepo;
-import com.IEFinalProject.Backend.repository.OrderItemRepo;
-import com.IEFinalProject.Backend.repository.OrderRepo;
-import com.IEFinalProject.Backend.repository.UsersRepo;
+import com.IEFinalProject.Backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +23,8 @@ public class OrdersService {
     private UsersRepo usersRepo;
     @Autowired
     private OrderItemRepo orderItemRepo;
+    @Autowired
+    private CartRepo cartRepo;
 
     @Transactional
     public OrderReqRes addOrder(String username){
@@ -58,6 +57,8 @@ public class OrdersService {
 
                 Orders newOrder = orderRepo.save(order);
                 if (newOrder.getOrderId() >= 0){
+                    cart.getCartItems().clear();
+                    cartRepo.save(cart);
                     response.setStatusCode(200);
                     response.setMessage("Order Successful");
                     response.setOrder(newOrder);

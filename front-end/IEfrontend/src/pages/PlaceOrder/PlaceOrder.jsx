@@ -1,9 +1,52 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
-const PlaceOrder = () => {
+import axios from "axios";
+import OrderService from "../../service/OrderService.js";
+import {toast, Toaster} from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
+const PlaceOrder = ({appUsername}) => {
+    const [totalAmount, setTotalAmount] = useState(0);
+    const tax = 15;
+    const navigate = useNavigate();
 
-  const {getTotalCartAmount} = useContext(StoreContext)
+    const getTotalAmount = async () =>{
+        const token = localStorage.getItem('token');
+        try {
+            const response = await axios.get(`http://localhost:8080/user/getCartTotal/${appUsername}`,
+                {
+                   headers: {
+                       Authorization: `Bearer ${token}`,
+                   }
+                });
+            if (response.status === 200){
+                setTotalAmount(response.data);
+                console.log(response.data)
+            }
+        }catch (error){
+            console.log("Error: ", error);
+        }
+    };
+
+
+
+    const addToOrder = async () =>{
+        const token = localStorage.getItem('token');
+        try {
+            const response = await OrderService.addOrder(appUsername,token);
+            if(response.status === 200){
+                toast.success("Order Success!")
+                navigate(`/${appUsername}`)
+            }
+        } catch (error){
+            toast.error("Order Unsuccessful!")
+            console.log("Error: ", error)
+        }
+    }
+
+    useEffect(() => {
+        getTotalAmount()
+    }, [appUsername]);
 
   return (
     <form className="place-order">
@@ -31,20 +74,21 @@ const PlaceOrder = () => {
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>₱{totalAmount}</p>
             </div>
             <hr></hr>
             <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p>${getTotalCartAmount()===0?0:2}</p>
+              <p>Transaction Fee</p>
+              <p>₱{tax}</p>
             </div>
             <hr></hr>
             <div className="cart-total-details">
               <b>Total</b>
-              <b>${getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
+              <b>₱{totalAmount + tax}</b>
             </div>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEED TO PAYMENT</button>
+          <button onClick={addToOrder}>PROCEED TO PAYMENT</button>
+          <Toaster/>
         </div>
       </div>
     </form>

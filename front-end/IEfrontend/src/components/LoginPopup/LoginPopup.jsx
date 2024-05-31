@@ -28,7 +28,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
         setShowLogin(false)
         setIsLoggedIn(true) // if the user is logged in successfully, setLoggedIn should be true
         setUsernameApp(username);
-        navigate(`/${currUsername}`);
+        navigate(`/${username}`);
       } else {
         setError(userData.message);
       }

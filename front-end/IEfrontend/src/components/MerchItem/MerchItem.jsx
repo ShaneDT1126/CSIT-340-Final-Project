@@ -3,20 +3,25 @@ import "./MerchItem.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 // const MerchItem = ({ setShowItemAdd, id, name, price, description, image }) => {
-  const MerchItem = ({ setShowItemAdd, id, name, price, description, onAddClick }) => {
+  const MerchItem = ({ setShowItemAdd, id, name, price, description, onAddClick, appUsername }) => {
       const imageUrl = `http://localhost:8080/auth/getProductImage/${id}`;
-  
+      const navigate = useNavigate()
+
   return (
-    <div className="merch-item">
+    <div className="merch-item" onClick={() =>navigate(`/products/${id}`)}>
       <div className="merch-item-img-container">
         <img className="merch-item-image" src={imageUrl} alt={name} />
         <img
           className="add"
-          onClick={onAddClick} // make this into a function that also passes id, name, price, description and image when onClick is
+          onClick={(e)=>{
+              e.stopPropagation();
+              onAddClick();
+          }} // make this into a function that also passes id, name, price, description and image when onClick is
           src={assets.add_icon_white}
-          alt=""
+          alt="Add to Cart"
         />
       </div>
       <div className="merch-item-info">

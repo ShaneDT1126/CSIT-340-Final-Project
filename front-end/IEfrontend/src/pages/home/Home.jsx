@@ -4,7 +4,7 @@ import Header from '../../components/Header/Header'
 import ExploreMenu from '../../components/ExploreMenu/ExploreMenu'
 import MerchDisplay from '../../components/MerchDisplay/MerchDisplay'
 
-const Home = ({setShowItemAdd}) => {
+const Home = ({setShowItemAdd, appUsername}) => {
 
   const[category, setCategory] = useState("All");
 
@@ -12,7 +12,7 @@ const Home = ({setShowItemAdd}) => {
     <div>
       <Header/>
       <ExploreMenu category={category} setCategory={setCategory}/> 
-      <MerchDisplay category={category} setShowItemAdd={setShowItemAdd}/>
+      <MerchDisplay category={category} setShowItemAdd={setShowItemAdd} appUsername={appUsername}/>
 
     </div>
   )
