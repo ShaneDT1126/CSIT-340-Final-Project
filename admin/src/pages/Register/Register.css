@@ -1,25 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-  .register-container {
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; 
+    font-family: Arial, sans-serif;
   }
-  
+
   .register {
     background-color: #f7f7f7;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 300px;
     text-align: center;
-    font-family: Outfit;
-  }
-  
-  a{
-    text-decoration: none;
-    color: inherit;
-    font-family: Outfit;
   }
 
   .register h2 {
@@ -27,18 +22,18 @@
     font-size: 24px;
     color: #333;
   }
-  
+
   .register-input {
     margin-bottom: 15px;
     text-align: left;
   }
-  
+
   .register-input label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
-  
+
   .register-input input {
     width: 100%;
     padding: 8px;
@@ -46,14 +41,14 @@
     border-radius: 4px;
     box-sizing: border-box;
   }
-  
+
   .register-actions {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
 
   }
-  
+
   .register-btn {
     background-color: #2D2D2D;
     color: white;
@@ -62,8 +57,7 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
   .register-btn:hover {
     background-color: #FDBB03;
   }
-  
