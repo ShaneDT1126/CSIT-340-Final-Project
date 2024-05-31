@@ -1,22 +1,40 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import AdminService from "../../service/AdminService.js";
 
 const Login = ({ setAuth }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Replace this with your authentication logic
-    if (username === 'admin' && password === 'password') {
-      setAuth(true);
-      navigate('/add');
-    } else {
-      alert('Invalid credentials');
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   // Replace this with your authentication logic
+  //   if (username === 'admin' && password === 'password') {
+  //     setAuth(true);
+  //     navigate('/add');
+  //   } else {
+  //     alert('Invalid credentials');
+  //   }
+  // };
+
+  const loginHandler = async (e) =>{
+    e.preventDefault()
+
+    try {
+      const admin = await AdminService.login(username,password);
+      console.log(admin);
+      if (admin.token){
+        localStorage.setItem('token',admin.token);
+        localStorage.setItem('role', admin.role);
+        navigate(`/add`);
+        setAuth(true);
+      }
+    }catch (error){
+      console.log(error);
     }
-  };
+  }
 
   const handleRegisterClick = () => {
     navigate('/register');
@@ -25,7 +43,7 @@ const Login = ({ setAuth }) => {
   return (
     <div className="login">
       <h2>Admin Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={loginHandler}>
         <div className="login-input">
           <label htmlFor="username">Username:</label>
           <input

@@ -1,25 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
+import AdminService from "../../service/AdminService.js";
 
 const Register = () => {
-  const [username, setUsername] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  })
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (formData.password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    // Replace this with your registration logic
-    console.log('Registered:', { username, password });
-    navigate('/login');
+    try {
+      const userData = await AdminService.register(formData);
+      console.log('Register Success', userData);
+      navigate('/login');
+      setFormData({
+          username: '',
+          password: ''
+        })
+
+    }catch (error){
+      console.log("Error occurred: ", error);
+    }
   };
+
+  const handleInputChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({...formData, [name]:value});
+    console.log(formData)
+  }
 
   const handleBackToLogin = () => {
     navigate('/login');
@@ -35,8 +51,8 @@ const Register = () => {
             type="text"
             id="username"
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleInputChange}
             required
           />
         </div>
@@ -46,8 +62,8 @@ const Register = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleInputChange}
             required
           />
         </div>
