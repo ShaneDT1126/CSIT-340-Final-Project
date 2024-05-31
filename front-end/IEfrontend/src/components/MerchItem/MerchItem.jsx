@@ -29,7 +29,7 @@ import {useNavigate} from "react-router-dom";
           <p>{name}</p>
         </div>
         <p className="merch-item-desc">{description}</p>
-        <p className="merch-item-price">${price}</p>
+        <p className="merch-item-price">₱{price}</p>
       </div>
     </div>
   );

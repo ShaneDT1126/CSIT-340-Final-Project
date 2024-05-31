@@ -46,7 +46,7 @@ const ProductDetails = ({appUsername, productId}) => {
             <img src={`http://localhost:8080/auth/getProductImage/${id}`} alt={product.name}/>
             <h1>{product.name}</h1>
             <p>{product.description}</p>
-            <p>${product.price}</p>
+            <p>₱{product.price}</p>
             <div>
                 <label htmlFor="quantity">Quantity:</label>
                 <input
