@@ -30,4 +30,9 @@ public class OrderController {
     public ResponseEntity<OrderReqRes> getOrderDetails(@PathVariable Integer orderId){
         return ResponseEntity.ok(ordersService.getOrderDetails(orderId));
     }
+
+    @PutMapping("auth/changeOrderStatus/{orderId}")
+    public ResponseEntity<OrderReqRes> changeOrderStatus(@PathVariable int orderId, @RequestParam int status){
+        return ResponseEntity.ok(ordersService.changeOrderStatus(orderId,status));
+    }
 }

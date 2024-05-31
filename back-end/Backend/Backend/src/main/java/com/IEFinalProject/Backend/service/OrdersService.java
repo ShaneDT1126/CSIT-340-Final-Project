@@ -160,4 +160,26 @@ public class OrdersService {
         return response;
     }
 
+    @Transactional
+    public OrderReqRes changeOrderStatus(int orderId, int orderStatus){
+        OrderReqRes response = new OrderReqRes();
+        try {
+            Optional<Orders> order = orderRepo.findById(orderId);
+            if (order.isPresent()){
+                Orders currentOrder = order.get();
+                currentOrder.setStatus(orderStatus);
+                orderRepo.save(currentOrder);
+                response.setMessage("Changed Status Complete!");
+                response.setStatus(200);
+                response.setOrder(currentOrder);
+                response.setUser(currentOrder.getOurUsers());
+            }
+        }catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            response.setStatusCode(500);
+            response.setMessage("Error Occurred: " +e.getMessage());
+        }
+        return response;
+    }
+
 }
