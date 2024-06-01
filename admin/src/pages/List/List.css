@@ -8,3 +8,12 @@
     font-size: 13px;
 
 }
+
+.list-btn {
+    max-width: 120px;
+    border: none;
+    padding: 5px;
+    background-color: rgb(146, 6, 6);
+    color: white;
+    cursor: pointer;
+}
