@@ -5,6 +5,7 @@ import {Link, Navigate, useParams} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import UserService from "../../service/UserService";
+import {toast} from "react-hot-toast";
 
 const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn, username }) => {
   const [menu, setMenu] = useState("home");
@@ -14,10 +15,11 @@ const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn, username }) => {
 
   const handleLogout = async (e) => {
     try {
+      if (confirm("Are you sure you want to logout?"))
       await UserService.logout();
       setIsLoggedIn(false);
       navigate('/');
-
+      toast.success("Logout Success!")
     } catch (error) {
       console.error('Error logging out:', error);
     }

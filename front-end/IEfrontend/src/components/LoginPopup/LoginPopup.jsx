@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import UserService from "../../service/UserService";
+import {toast} from "react-hot-toast";
 
 const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }) => {
   const [currState, setCurrState] = useState("Login");
@@ -24,7 +25,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
         localStorage.setItem("token", userData.token);
         localStorage.setItem("role", userData.role);
         let currUsername = username;
-        alert('User logged in successfully');
+        toast.success("Logged In Successfully!")
         setShowLogin(false)
         setIsLoggedIn(true) // if the user is logged in successfully, setLoggedIn should be true
         setUsernameApp(username);
@@ -101,7 +102,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
               phoneNumber: '',
               address: ''
           });
-          alert('User registered successfully');
+          toast.success("User Registered Successfully!")
           setShowLogin(false) // 
           navigate('/');
 

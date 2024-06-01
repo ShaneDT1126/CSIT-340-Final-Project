@@ -116,7 +116,6 @@ const Cart = ({appUsername}) => {
                   <p onClick={()=>removeToCart(item?.cartItemId)} className="cross">
                     x
                   </p>
-                  <Toaster/>
                 </div>
 
                 <hr />

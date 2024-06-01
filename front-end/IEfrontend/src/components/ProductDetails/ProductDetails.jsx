@@ -58,7 +58,6 @@ const ProductDetails = ({appUsername, productId}) => {
                 />
             </div>
             <button onClick={handleAddToCart}>Add to Cart</button>
-            <Toaster/>
         </div>
     );
 };
