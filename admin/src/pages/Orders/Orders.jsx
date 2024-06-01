@@ -1,13 +1,12 @@
 import {useEffect, useState} from 'react'
 import './Orders.css'
 import axios from "axios";
-import {Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 const Orders = () => {
   const url = "http://localhost:8080/auth";
   const [orderList,setOrderList] = useState([]);
-  const [status, setStatus] = useState(0);
-  const fetchOrders = async () => {
 
+  const fetchOrders = async () => {
     try {
       const response = await axios.get(`${url}/getAllOrders`);
       setOrderList(response.data.orders || []);
@@ -16,12 +15,6 @@ const Orders = () => {
     }
   };
 
-  const onChangeHandler = (e) =>{
-    const name = e.target.name;
-    const value = e.target.value;
-    setStatus(data =>({...data,[name]:value}));
-    console.log(status);
-  }
 
   const handleStatusChange = async (orderId, newStatus) =>
   {
@@ -30,8 +23,10 @@ const Orders = () => {
       const response = await axios.put(`${url}/changeOrderStatus/${orderId}?status=${statusValue}`);
       if (response.status === 200){
         console.log("Status Change Successful");
+        toast.success("Order Changed Status Success");
       }
-      fetchOrders();
+        fetchOrders();
+
     }catch (error){
       console.log("Error: ",error);
     }
@@ -72,7 +67,6 @@ const Orders = () => {
                               <option value={3}>Order Complete</option>
                           </select>
                           </div>
-                          <Toaster/>
                         </div>
                     ))}
                   </>

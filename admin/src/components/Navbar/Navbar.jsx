@@ -3,6 +3,7 @@ import './Navbar.css';
 import { assets } from '../../assets/assets';
 import AdminService from "../../service/AdminService.js";
 import {useNavigate} from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Navbar = ({setAuth}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -26,22 +27,21 @@ const Navbar = ({setAuth}) => {
     };
   }, []);
 
-  const handleSignIn = () => {
-    console.log('Sign In clicked');
-    // Implement sign in functionality
-  };
 
   const handleLogout = async () => {
     try {
-      await AdminService.logout();
-      setAuth(false);
-      navigate("/login");
-      console.log("logout success!");
+      if(confirm("Are you sure you want to log out?")){
+        await AdminService.logout();
+        setAuth(false);
+        navigate("/login");
+        console.log("logout success!");
+        toast.success("Logout Success!")
+      }else {
+        console.log("Canceled")
+      }
     }catch (error){
       console.log("Error: ", error);
     }
-
-    // Implement logout functionality
   }
 
   return (
