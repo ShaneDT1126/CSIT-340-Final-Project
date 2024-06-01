@@ -38,11 +38,9 @@ const Orders = () => {
 
   }
   
-
   useEffect(() => {
     fetchOrders();
   }, []);
-
 
   return (
         <div className="order add flex-col">  
