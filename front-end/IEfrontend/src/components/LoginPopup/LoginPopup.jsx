@@ -52,38 +52,18 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
       address: ''
   });
 
-  const PhoneNumberInput = () => {
-    const inputRef = useRef(null);
-  
-    const handleNumInputChange = (e) => {
-      const inputValue = e.target.value;
-
-      if (/^[0-9]*$/.test(inputValue)) {
-        // Update phoneNumber state in formData
-        setFormData({ ...formData, phoneNumber: inputValue });
-      }
-      inputRef.current.focus(); // Set focus back to the input field
-    };
-    
-    return (
-      <input
-        ref={inputRef}
-        type="tel"
-        placeholder="Enter your phone number"
-        maxLength={11}
-        required
-        inputMode="tel"
-        value={formData.phoneNumber}
-        onChange={handleNumInputChange}
-        style={{ WebkitAppearance: 'none', MozAppearance: 'textfield', appearance: 'none' }}
-      />
-    );
-  };
-
     const handleRegisterInputChange = (e) => {
       const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-        console.log("formData:", { ...formData, [name]: value }); // Log the value of formData
+    
+      if (name === 'phoneNumber') {
+        // Braytas claude ai Oie
+        const input = value.replace(/\D/g, '').slice(0, 11);
+        setFormData({ ...formData, [name]: input });
+      } else {
+        setFormData({ ...formData, [name]: value });
+      }
+    
+      console.log("formData:", { ...formData, [name]: value }); 
     };
 
     const handleRegisterSubmit = async (e) => {
@@ -148,7 +128,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
               <input type="password" name="password" value={formData.password} onChange={handleRegisterInputChange} placeholder="Enter your password" required />
               <input type="email" name="email" value={formData.email} onChange={handleRegisterInputChange} placeholder="Enter your email"  required />
               <input type="text" name="address" value={formData.address} onChange={handleRegisterInputChange} placeholder="Enter your address" required />
-              <PhoneNumberInput />
+              <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleRegisterInputChange} placeholder="Enter your phone number" required pattern="^[0-9]{1,11}$" maxLength="11"/>  
             </>
           )}
         </div>
