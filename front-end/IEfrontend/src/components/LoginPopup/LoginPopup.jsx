@@ -131,7 +131,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
             <>
               <input type="text" 
                 value={username} 
-                placeholder="Enter your email" 
+                placeholder="Enter your username" 
                 required 
                 onChange={(e) => setUsername(e.target.value)} />
               <input type="password" 
