@@ -63,7 +63,6 @@ const List = () => {
                           <p>{item?.category?.name || 'N/A'}</p>
                           <p>{item?.price || 'N/A'}</p>
                           <button className='list-btn' onClick={()=> deleteProduct(item.productId)}>Delete</button>
-                          <Toaster/>
                       </div>
                   ))}
               </>
