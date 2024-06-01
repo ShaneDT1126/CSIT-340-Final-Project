@@ -65,10 +65,7 @@ const Orders = () => {
                           <p>{item?.orderDate || 'N/A'}</p>
                           <p>{item?.totalAmount || 'N/A'}</p>
                           <div className="order-select-container">
-                          <select name="status" 
-                            value={item.status !== undefined ? item.status : 0} 
-                            onChange={(e) => handleStatusChange(item.orderId, e.target.value)} 
-                            className="order-select">
+                          <select name="status" value={item.status} onChange={(e) => handleStatusChange(item.orderId, e.target.value)} className="order-select">
                               <option value={0}>Being Prepared</option>
                               <option value={1}>To Be Shipped</option>
                               <option value={2}>Waiting For Pickup</option>
