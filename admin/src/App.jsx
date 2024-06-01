@@ -15,7 +15,7 @@ const App = () => {
     <div>
       {isAuthenticated ? (
         <>
-          <Navbar />
+          <Navbar setAuth={setIsAuthenticated}/>
           <hr/>
           <div className='app-content'>
             <Sidebar/>

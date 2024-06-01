@@ -28,8 +28,9 @@ const Login = ({ setAuth }) => {
       if (admin.token){
         localStorage.setItem('token',admin.token);
         localStorage.setItem('role', admin.role);
-        navigate(`/add`);
         setAuth(true);
+        navigate(`/add`);
+
       }
     }catch (error){
       console.log(error);

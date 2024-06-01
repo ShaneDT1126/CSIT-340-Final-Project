@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets';
 import AdminService from "../../service/AdminService.js";
 import {useNavigate} from "react-router-dom";
 
-const Navbar = (setAuth) => {
+const Navbar = ({setAuth}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -35,13 +35,14 @@ const Navbar = (setAuth) => {
     try {
       await AdminService.logout();
       setAuth(false);
-      navigate(`/login`);
+      navigate("/login");
+      console.log("logout success!");
     }catch (error){
       console.log("Error: ", error);
     }
 
     // Implement logout functionality
-  };
+  }
 
   return (
     <div className='navbar'>
