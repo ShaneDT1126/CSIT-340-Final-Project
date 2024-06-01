@@ -37,6 +37,7 @@ const Orders = () => {
     }
 
   }
+  
 
   useEffect(() => {
     fetchOrders();
@@ -64,12 +65,14 @@ const Orders = () => {
                           <p>{item?.ourUsers?.username || 'N/A'}</p>
                           <p>{item?.orderDate || 'N/A'}</p>
                           <p>{item?.totalAmount || 'N/A'}</p>
-                          <select name="status" value={item.status} onChange={(e) => handleStatusChange(item.orderId, e.target.value)}>
+                          <div className="order-select-container">
+                          <select name="status" value={item.status !== undefined ? item.status : 0} onChange={(e) => handleStatusChange(item.orderId, e.target.value)} className="order-select">
                             <option value={0}>Being Prepared</option>
                             <option value={1}>To Be Shipped</option>
                             <option value={2}>Waiting For Pickup</option>
                             <option value={3}>Order Complete</option>
                           </select>
+                          </div>
                           <Toaster/>
                         </div>
                     ))}
