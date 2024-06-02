@@ -7,12 +7,14 @@ import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import {Toaster} from "react-hot-toast";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <div>
+      <Toaster/>
       {isAuthenticated ? (
         <>
           <Navbar setAuth={setIsAuthenticated}/>

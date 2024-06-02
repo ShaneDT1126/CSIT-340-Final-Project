@@ -11,6 +11,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import PaymentCancel from "./pages/Payment/PaymentCancel.jsx";
 import PaymentError from "./pages/Payment/PaymentError.jsx";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess.jsx";
+import {Toaster} from "react-hot-toast";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -20,6 +21,7 @@ const App = () => {
   const [showItemAdd, setShowItemAdd] = useState(false);
 
   return (
+
     // <>
     //   {showLogin ? (
     //     <LoginPopup
@@ -39,6 +41,7 @@ const App = () => {
     //     <></>
     //   )}
     <>
+      <Toaster/>
       {showLogin && (
         <LoginPopup
           setShowLogin={setShowLogin}

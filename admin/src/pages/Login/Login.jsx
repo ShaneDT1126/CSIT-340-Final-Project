@@ -8,29 +8,17 @@ const Login = ({ setAuth }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   // Replace this with your authentication logic
-  //   if (username === 'admin' && password === 'password') {
-  //     setAuth(true);
-  //     navigate('/add');
-  //   } else {
-  //     alert('Invalid credentials');
-  //   }
-  // };
 
   const loginHandler = async (e) =>{
     e.preventDefault()
 
     try {
       const admin = await AdminService.login(username,password);
-      console.log(admin);
       if (admin.token){
         localStorage.setItem('token',admin.token);
         localStorage.setItem('role', admin.role);
         setAuth(true);
         navigate(`/add`);
-
       }
     }catch (error){
       console.log(error);

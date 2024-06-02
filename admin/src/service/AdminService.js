@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {toast} from "react-hot-toast";
 
 class AdminService{
     static BASE_URL = "http://localhost:8080"
@@ -7,7 +7,12 @@ class AdminService{
     static async login(username, password){
         try{
 
-            const response = await axios.post(`${AdminService.BASE_URL}/auth/login`, {username, password})
+            const response = await axios.post(`${AdminService.BASE_URL}/auth/login`, {username, password});
+            if (response.data.statusCode === 500){
+                toast.error("Wrong Username or Password!");
+            }else {
+                toast.success("Login Success!");
+            }
             return response.data;
 
         } catch (err){

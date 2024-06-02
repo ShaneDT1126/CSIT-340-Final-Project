@@ -68,6 +68,7 @@ const MerchDisplay = ({ category, setShowItemAdd, appUsername }) => {
         {list.map((item, index) => {
           if(category==="All" || category === item.category.name) {
             console.log(item?.productId)
+
             return <>
             <MerchItem
             key={index}
@@ -81,7 +82,7 @@ const MerchDisplay = ({ category, setShowItemAdd, appUsername }) => {
             onAddClick={() => handleAddClick(item)}
             appUsername={user}
             />
-            <Toaster/>
+
             </>
 
           }})}
