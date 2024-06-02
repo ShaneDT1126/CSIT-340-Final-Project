@@ -15,11 +15,14 @@ const Navbar = ({ setShowLogin, isLoggedIn, setIsLoggedIn, username }) => {
 
   const handleLogout = async (e) => {
     try {
-      if (confirm("Are you sure you want to logout?"))
-      await UserService.logout();
-      setIsLoggedIn(false);
-      navigate('/');
-      toast.success("Logout Success!")
+      if (confirm("Are you sure you want to logout?")){
+        await UserService.logout();
+        setIsLoggedIn(false);
+        navigate('/');
+        toast.success("Logout Success!")
+      }else {
+
+      }
     } catch (error) {
       console.error('Error logging out:', error);
     }
