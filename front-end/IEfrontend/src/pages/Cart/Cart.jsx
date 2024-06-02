@@ -161,7 +161,7 @@ const Cart = ({appUsername}) => {
           {/*()=>navigate(`/${appUsername}/order`)*/}
           <button onClick={payWithPaypal}>PROCEED TO CHECKOUT</button>
         </div>
-        <div className="cart-promocode">
+        {/* <div className="cart-promocode">
           <div>
             <p>If you have a promo code, Enter it here</p>
             <div className="cart-promocode-input">
@@ -169,7 +169,7 @@ const Cart = ({appUsername}) => {
               <button>Submit</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
