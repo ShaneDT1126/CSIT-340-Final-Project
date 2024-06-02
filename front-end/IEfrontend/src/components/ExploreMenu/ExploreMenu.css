@@ -20,12 +20,15 @@
     gap: 50px; 
     text-align: center;
     margin: 20px 0px;
-    overflow-x: auto; 
+    overflow-x: 10px; 
 }
 
 .explore-menu-list-item {
     flex-shrink: 0; 
+    transition: all 0.2s;
+
 }
+
 
 .explore-menu-list::-webkit-scrollbar {
     display: none;
@@ -36,7 +39,12 @@
     min-width: 80px;
     cursor: pointer;
     border-radius: 50%;
-    transition: 0.2s;
+    transition: 0.3s;
+}
+
+.explore-menu-list-item img:hover {
+    transform: translateY(-10px);
+    color: var(--clr-light);
 }
 
 .explore-menu-list-item p {
