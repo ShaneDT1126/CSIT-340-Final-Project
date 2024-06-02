@@ -20,7 +20,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
 
     try {
       const userData = await UserService.login(username, password);
-      console.log(userData);
+
       if (userData.token) {
         localStorage.setItem("token", userData.token);
         localStorage.setItem("role", userData.role);
@@ -31,6 +31,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
         setUsernameApp(username);
         navigate(`/${username}`);
       } else {
+          toast.error("Incorrect Username or Password!");
         setError(userData.message);
       }
     } catch (error) {
@@ -40,7 +41,7 @@ const LoginPopup = ({ setShowLogin, setIsLoggedIn, usernameApp, setUsernameApp }
         setError("");
       }, 5000);
     }
-  };
+  }
 
   // Form register getters
     const [formData, setFormData] = useState({
