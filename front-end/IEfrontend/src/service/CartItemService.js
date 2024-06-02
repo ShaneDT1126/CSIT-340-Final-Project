@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {toast} from "react-hot-toast";
 
 
 class CartItemService {
@@ -13,7 +14,8 @@ class CartItemService {
                         Authorization: `Bearer ${token}`,
                         "Content-Type" : "application/json"
                     }
-                })
+                });
+            toast.success("Added to cart Successfully")
             return response.data;
         }catch (error){
             throw error;

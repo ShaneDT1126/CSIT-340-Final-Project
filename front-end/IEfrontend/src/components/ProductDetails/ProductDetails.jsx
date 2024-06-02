@@ -29,7 +29,6 @@ const ProductDetails = ({appUsername, productId}) => {
             const token = localStorage.getItem('token');
             const response = await CartItemService.addToCart(appUsername, id, quantity, token);
             if (response.statusCode === 200) {
-                toast.success("Added to Cart Successfully!");
                 console.log("added to cart successfully");
             }
         } catch (error) {
@@ -86,7 +85,6 @@ const ProductDetails = ({appUsername, productId}) => {
                     />
                 </div>
             )}
-            <Toaster />
         </div>
     );
 };
